@@ -19,12 +19,6 @@ const initialFValue = {
   confirmPassword: "",
 };
 
-const fool = "rahul"
-const testObj = {
-name : "fully",
-passion: "baka"
-
-}
 
 
 
