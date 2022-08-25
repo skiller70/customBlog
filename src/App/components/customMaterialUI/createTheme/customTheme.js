@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const theme = createTheme({
+export const customTheme = createTheme({
   palette : {
     background  :{
         default : "#E8EAF6"

@@ -1,7 +1,7 @@
 import "./App.css";
 
 import Navbar from "./components/Navbar/Navbar";
-import { theme } from "./components/CustomMaterialUI/createTheme/customTheme";
+import { customTheme } from "./components/CustomMaterialUI/createTheme/customTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import Register from "./components/Form/Register";
