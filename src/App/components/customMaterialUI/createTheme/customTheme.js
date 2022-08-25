@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/system"
 
 export const customTheme = createTheme({
   palette : {
