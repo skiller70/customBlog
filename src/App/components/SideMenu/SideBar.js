@@ -1,6 +1,5 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
-import "../../App.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SideMenu(props) {
+function SideBar(props) {
     const classes =useStyles()
   return <div className={classes.root}></div>;
 }
 
-export default SideMenu;
+export default SideBar;

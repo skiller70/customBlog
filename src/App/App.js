@@ -7,7 +7,7 @@ import { makeStyles } from "@mui/styles";
 import Register from "./components/Form/Register";
 import { CssBaseline } from "@mui/material";
 import React from "react";
-import SideMenu from "./components/SideMenu/SideMenu";
+import SideBar from "./components/SideMenu/SideBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +23,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
 
-        <SideMenu />
+        <SideBar/>
         <div className={classes.root}>
         <Navbar />
 
