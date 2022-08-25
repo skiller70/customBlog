@@ -1,13 +1,13 @@
 import "./App.css";
 
 import Navbar from "./components/Navbar/Navbar";
-import { theme } from "./components/customMaterialUI/createTheme/customTheme";
+import { theme } from "./components/CustomMaterialUI/createTheme/customTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import Register from "./components/Form/Register";
 import { CssBaseline } from "@mui/material";
 import React from "react";
-import SideMenu from "./components/sideMenu/SideMenu";
+import SideMenu from "./components/SideMenu/SideMenu";
 
 const useStyles = makeStyles((theme) => ({
   root: {

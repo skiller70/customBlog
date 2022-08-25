@@ -6,7 +6,7 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
   customBox: {
     margin: theme.spacing(2),
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   },
 }));
 function Register(props) {
