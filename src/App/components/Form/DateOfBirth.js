@@ -19,16 +19,20 @@ class DateOfBirth extends Component {
       <>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-        
             label="Date of Birth"
             value={this.props.value}
             name={name}
-         
             onChange={(newValue) => {
-              console.log(newValue)
+              console.log(newValue);
               this.props.setValue(newValue);
             }}
-            renderInput={(params) => <TextField    {...params}  error={error} helperText={error ? this.props.errorMessage : null}/>}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                error={error}
+                helperText={error ? this.props.errorMessage : null}
+              />
+            )}
           />
         </LocalizationProvider>
       </>
