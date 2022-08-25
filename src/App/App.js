@@ -1,18 +1,16 @@
-
 import React from "react";
 import Navbar from "./components/Navbar/Navbar";
-import  customTheme  from "./components/CustomMaterialUI/createTheme/customTheme";
+import customTheme from "./components/CustomMaterialUI/createTheme/customTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import Register from "./components/Form/Register";
 import { CssBaseline } from "@mui/material";
-
 import SideBar from "./components/SideMenu/SideBar";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
-    paddingLeft : "320px",
-    width : "100%"
+    paddingLeft: "320px",
+    width: "100%",
   },
 }));
 function App() {
@@ -23,9 +21,9 @@ function App() {
       <ThemeProvider theme={customTheme}>
         <CssBaseline />
 
-        <SideBar/>
+        <SideBar />
         <div className={classes.root}>
-        <Navbar />
+          <Navbar />
 
           <Register />
         </div>
