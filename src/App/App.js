@@ -1,12 +1,12 @@
-import "./App.css";
 
+import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import  customTheme  from "./components/CustomMaterialUI/createTheme/customTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import Register from "./components/Form/Register";
 import { CssBaseline } from "@mui/material";
-import React from "react";
+
 import SideBar from "./components/SideMenu/SideBar";
 
 const useStyles = makeStyles((theme) => ({

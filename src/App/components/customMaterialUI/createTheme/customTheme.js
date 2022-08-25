@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export default customTheme = createTheme({
+const customTheme = createTheme({
   palette : {
     background  :{
         default : "#E8EAF6"
@@ -17,3 +17,5 @@ components: {
 }
 
 })
+
+export default customTheme;
