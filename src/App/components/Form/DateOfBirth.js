@@ -7,9 +7,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 class DateOfBirth extends Component {
-  constructor(props) {
-    super(props);
-  }
+ 
 
   render() {
     const { name } = this.props;

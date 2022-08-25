@@ -3,9 +3,7 @@ import { TextField } from "@mui/material";
 import { withFormsy } from "formsy-react";
 
 class InputController extends Component {
-  constructor(props) {
-    super(props);
-  }
+ 
 
   changeValue = (e) => {
     this.props.setValue(e.target.value);
