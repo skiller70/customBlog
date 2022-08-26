@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { colors, CssBaseline } from "@mui/material";
 
 
