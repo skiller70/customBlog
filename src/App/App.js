@@ -4,9 +4,8 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { colors, CssBaseline } from "@mui/material";
-import SideBar from "./components/SideMenu/SideBar";
-import store from "./ReduxToolkit/ReduxStore/store";
-import {Provider} from "react-redux"
+
+
 
 const customTheme = createTheme({
   palette: {
@@ -39,7 +38,7 @@ function App() {
 
   return (
     <>
-   <Provider  store={store}>
+  
       <ThemeProvider theme={customTheme}>
         <CssBaseline />
 
@@ -49,7 +48,7 @@ function App() {
         
         </div>
       </ThemeProvider>
-      </Provider>
+    
  
     </>
   );
