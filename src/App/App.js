@@ -3,8 +3,8 @@ import Navbar from "./components/Navbar/Navbar";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { colors, CssBaseline } from "@mui/material";
-
-
+import {Provider} from "react-redux"
+import store from "./ReduxToolkit/ReduxStore/store";
 
 const customTheme = createTheme({
   palette: {
@@ -34,6 +34,7 @@ function App() {
     <>
   
       <ThemeProvider theme={customTheme}>
+            <Provider store={store}>
         <CssBaseline />
 
         <div >
@@ -41,6 +42,7 @@ function App() {
 
         
         </div>
+        </Provider>
       </ThemeProvider>
     
  
