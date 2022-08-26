@@ -15,12 +15,12 @@ function Drawer(props) {
       anchor="left"
     >
       <Grid alignContent="center" style={{ minHeight: "15%" }} container>
-        <Grid xs={9} item>
+        <Grid xs={8} item>
           <Typography textAlign="center" component="div" variant="h5">
             App Menu
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <Control.Button
             onClick={() => {
               setOpenDrawer(false);
@@ -28,13 +28,13 @@ function Drawer(props) {
             text="X"
             variant="contained"
             color="secondary"
-            size="small"
+            size="large"
           />
         </Grid>
       </Grid>
 
       <Divider />
-      <Box p={2} width="320px" textAlign="center" role="presentation">
+      <Box p={2} width="270px" textAlign="center" role="presentation">
         <Typography component="div" variant="h5">
           {children}
         </Typography>

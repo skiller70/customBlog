@@ -1,4 +1,10 @@
-import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import Control from "../ReuseComponents/Control";
 
@@ -9,22 +15,24 @@ function Popup(props) {
       <Dialog maxWidth="md" open={isOpen}>
         <DialogTitle>
           <div>
-            <Typography
-              variant="h5"
-              component="div"
-              style={{ flexGrow: 1, paddingLeft: 15 }}
-            >
-              {title}
-            </Typography>
-
-            <Control.Button
-              onClick={() => {
-                setIsOpen(false);
-              }}
-              variant="contained"
-              color="secondary"
-              text="X"
-            />
+            <Grid container>
+              <Grid  xs={9} md={11} item> 
+                <Typography variant="h5" component="div">
+                  {title}
+                </Typography>
+              </Grid>
+            
+              <Grid md={1} xs={3} item>
+                <Control.Button
+                  onClick={() => {
+                    setIsOpen(false);
+                  }}
+                  variant="contained"
+                  color="secondary"
+                  text="X"
+                />
+              </Grid>
+            </Grid>
           </div>
         </DialogTitle>
 

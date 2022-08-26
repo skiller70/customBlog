@@ -51,7 +51,7 @@ function Navbar(props) {
       </AppBar>
 
       <Control.Popup
-        title="Register User Form"
+        title="Sign Up"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       >
