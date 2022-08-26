@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import dialogReducers from "../ReduxReducers/dialogReducers";
-
+import dialogReducers from "../reduxreducers/dialogReducers"
 
 export const Store = configureStore({
 
