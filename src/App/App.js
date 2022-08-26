@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { colors, CssBaseline } from "@mui/material";
 import {Provider} from "react-redux"
-import store from "./ReduxToolkit/ReduxStore/store";
+import {store} from "./ReduxToolkit/ReduxStore/store";
 
 const customTheme = createTheme({
   palette: {
