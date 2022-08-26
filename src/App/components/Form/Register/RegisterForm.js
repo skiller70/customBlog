@@ -1,16 +1,16 @@
 import { Grid, Button } from "@mui/material";
 import Formsy from "formsy-react";
-import InputController from "./InputController";
-import useErrors from "../Hook/useErrors";
+import InputController from "../InputController";
+import useErrors from "../../Hook/useErrors";
 
-import { useForm } from "../Hook/useForm";
+import { useForm } from "../../Hook/useForm";
 import { makeStyles } from "@mui/styles";
-import DateOFBirth from "./DateOfBirth";
+import DateOFBirth from "../DateOfBirth";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     "& .MuiFormControl-root": {
-      margin: theme.spacing(1),
+      margin: theme.spacing(1.5),
       width: "80%",
     },
   },

@@ -3,14 +3,19 @@ import Navbar from "./components/Navbar/Navbar";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import Register from "./components/Form/Register";
-import { CssBaseline } from "@mui/material";
+import { colors, CssBaseline } from "@mui/material";
 import SideBar from "./components/SideMenu/SideBar";
+import store from "./ReduxToolkit/ReduxStore/store";
+import {Provider} from "react-redux"
+
 const customTheme = createTheme({
   palette: {
     background: {
       default: "#E8EAF6",
     },
+    secondary : {
+      main : colors.red[500]
+    }
   },
   components: {
     MuiAppBar: {
@@ -34,16 +39,18 @@ function App() {
 
   return (
     <>
+   <Provider  store={store}>
       <ThemeProvider theme={customTheme}>
         <CssBaseline />
 
-        <SideBar />
-        <div className={classes.root}>
+        <div >
           <Navbar />
 
-          <Register />
+        
         </div>
       </ThemeProvider>
+      </Provider>
+ 
     </>
   );
 }
