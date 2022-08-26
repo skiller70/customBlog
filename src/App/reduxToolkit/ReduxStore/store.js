@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import dialogReducers from "../reduxreducers/dialogReducers"
 
-export const Store = configureStore({
+ const store = configureStore({
 
 reducer : {isRegisterOpen : dialogReducers }
 
 
 })
 
+export default store;
