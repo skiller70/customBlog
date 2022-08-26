@@ -27,14 +27,9 @@ const customTheme = createTheme({
   },
 });
 
-const useStyles = makeStyles(() => ({
-  root: {
-    paddingLeft: "320px",
-    width: "100%",
-  },
-}));
+
 function App() {
-  const classes = useStyles();
+  
 
   return (
     <>
