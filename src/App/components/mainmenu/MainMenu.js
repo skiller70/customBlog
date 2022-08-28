@@ -3,7 +3,6 @@ import { END_POINT } from "../api/ApiEndpoint";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 
-import { useBlogs } from "../api/useFetch";
 import BlogCard from "../ReuseComponents/Card";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
@@ -29,7 +28,6 @@ function MainMenu(props) {
   const [blogPage, setBlogPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
 
- 
   useEffect(() => {
     END_POINT.get("/pages").then((data) => {
       setLastPage(data.data.pages);
