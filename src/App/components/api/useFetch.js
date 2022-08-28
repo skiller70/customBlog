@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import React from "react";
+
 import { END_POINT } from "./ApiEndpoint";
 
 export function useFetch(props) {
@@ -18,7 +18,7 @@ export function useFetch(props) {
     data,
     refetch,
   };
-}
+} 
 
 export function useBlogs(props) {
  

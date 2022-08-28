@@ -29,13 +29,14 @@ function MainMenu(props) {
   const [blogPage, setBlogPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
 
-  const [expanded, setExpanded] = useState(false);
+ 
   useEffect(() => {
     END_POINT.get("/pages").then((data) => {
       setLastPage(data.data.pages);
     });
   }, [blogPage]);
   console.log(lastPage);
+  console.log(setBlogPage);
 
   return (
     <>

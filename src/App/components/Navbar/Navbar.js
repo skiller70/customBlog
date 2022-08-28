@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RegisterForm from "../Form/Register/RegisterForm";
 import Control from "../ReuseComponents/Control";
 import { makeStyles } from "@mui/styles";
-import { Grid, Toolbar ,colors} from "@mui/material";
+import { Grid, Toolbar } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
