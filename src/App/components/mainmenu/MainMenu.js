@@ -38,6 +38,15 @@ function MainMenu(props) {
 
   return (
     <>
+
+<Control.Popup
+            maxWidth="sm"
+            title="Blog Post"
+            isOpen={isOpenPost}
+            setIsOpen={setIsOpenPost}
+          >
+            <CreateBlog></CreateBlog>
+          </Control.Popup>
       <Grid container>
         <Grid sm={0} md={2} item></Grid>
         <Grid sm={12} md={7} item>
@@ -59,14 +68,7 @@ function MainMenu(props) {
           <BlogCard></BlogCard>
         </Grid>
         <Grid sm={0} md={3} item>
-          <Control.Popup
-            maxWidth="sm"
-            title="Blog Post"
-            isOpen={isOpenPost}
-            setIsOpen={setIsOpenPost}
-          >
-            <CreateBlog></CreateBlog>
-          </Control.Popup>
+        
           <h1>asdasdasd</h1>
           <h1>asdasdasd</h1>
           <h1>asdasdasd</h1>

@@ -65,9 +65,9 @@ function RegisterForm(props) {
             type="password"
           />
           <InputController  
-            name="password"
+            name="confirmPassword"
             label="Your confirm password"
-            validations="equalsField:password,minLength:8"
+            validations="equalsField:password"
             validationErrors={passwordError}
             type="password"
           />

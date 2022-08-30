@@ -3,7 +3,7 @@ import RegisterForm from "../Form/Register/RegisterForm";
 import Control from "../ReuseComponents/Control";
 import { makeStyles } from "@mui/styles";
 import { Grid, Toolbar } from "@mui/material";
-
+import Login from "../Form/login/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 
@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar(props) {
   const classes = useStyles();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSignUp, setIsOpenSignUp] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [isOpenLogin,setIsOpenLogin] = useState(false)
   return (
     <>
       <AppBar  position="fixed"   elevation={2}>
@@ -37,6 +38,7 @@ function Navbar(props) {
             </Grid>
             <Grid sx={{ display: { xs: "none", md: "block" } }} item>
               <Control.Button
+              onClick={() => setIsOpenLogin(true)}
                 sx={{ margin: "6px" }}
                 variant="outlined"
                 text="Login"
@@ -44,7 +46,7 @@ function Navbar(props) {
 
               <Control.Button
                 text="  Sign Up"
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsOpenSignUp(true)}
                 variant="outlined"
               />
             </Grid>
@@ -52,14 +54,20 @@ function Navbar(props) {
         </Toolbar>
       </AppBar>
 
-      <Control.Popup title="Sign Up" isOpen={isOpen} setIsOpen={setIsOpen}>
+
+      <Control.Popup   maxWidth="sm" title="Login" isOpen={isOpenLogin} setIsOpen={setIsOpenLogin}>
+        <Login/>
+      </Control.Popup>
+
+      
+      <Control.Popup title="Sign Up" isOpen={isOpenSignUp} setIsOpen={setIsOpenSignUp}>
         <RegisterForm />
       </Control.Popup>
 
       <Control.Drawer setOpenDrawer={setOpenDrawer} openDrawer={openDrawer}>
         <Control.Button
           text="  Sign Up"
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsOpenSignUp(true)}
           variant="outlined"
         />
       </Control.Drawer>

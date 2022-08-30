@@ -17,7 +17,7 @@ function Button(props) {
       classes={{ root: classes.root, label: classes.label }}
       sx={sx}
       color={color || "primary"}
-      variant={variant || "primary"}
+      variant={variant || "contented"}
       size={size || "large"}
       onClick={onClick}
       {...other}
