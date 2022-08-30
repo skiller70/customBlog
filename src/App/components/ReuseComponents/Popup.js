@@ -9,20 +9,20 @@ import React from "react";
 import Control from "../ReuseComponents/Control";
 
 function Popup(props) {
-  const { title, children, isOpen, setIsOpen } = props;
+  const { title, children, isOpen, setIsOpen,maxWidth } = props;
   return (
     <>
-      <Dialog maxWidth="md" open={isOpen}>
+      <Dialog maxWidth={maxWidth || "md"} open={isOpen}>
         <DialogTitle>
-          <div>
-            <Grid container>
-              <Grid  xs={9} md={11} item> 
+         
+            <Grid container>  
+              <Grid  xs={9} md={10} item> 
                 <Typography variant="h5" component="div">
                   {title}
                 </Typography>
               </Grid>
             
-              <Grid md={1} xs={3} item>
+              <Grid md={2} xs={2} item>
                 <Control.Button
                   onClick={() => {
                     setIsOpen(false);
@@ -33,7 +33,7 @@ function Popup(props) {
                 />
               </Grid>
             </Grid>
-          </div>
+          
         </DialogTitle>
 
         <DialogContent dividers>{children}</DialogContent>

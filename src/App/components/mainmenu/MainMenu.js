@@ -2,12 +2,12 @@ import { Grid } from "@mui/material";
 import { END_POINT } from "../api/ApiEndpoint";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
-
+import Control from "../ReuseComponents/Control";
 import BlogCard from "../ReuseComponents/Card";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import { Box } from "@mui/system";
-
+import CreateBlog from "../createblog/CreateBlog";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -27,7 +27,7 @@ function MainMenu(props) {
   const classes = useStyles();
   const [blogPage, setBlogPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
-
+  const [isOpenPost, setIsOpenPost] = useState(false);
   useEffect(() => {
     END_POINT.get("/pages").then((data) => {
       setLastPage(data.data.pages);
@@ -46,11 +46,11 @@ function MainMenu(props) {
               position: "fixed",
 
               paddingLeft: 1,
-              top: 420,
+              top: 480,
               zIndex: 1,
             })}
           >
-            <Fab className={classes.addButton} color="primary" aria-label="add">
+            <Fab onClick={()=>{setIsOpenPost(true)}} className={classes.addButton} color="primary" aria-label="add">
               <AddIcon />
             </Fab>
           </Box>
@@ -59,6 +59,14 @@ function MainMenu(props) {
           <BlogCard></BlogCard>
         </Grid>
         <Grid sm={0} md={3} item>
+          <Control.Popup
+            maxWidth="sm"
+            title="Blog Post"
+            isOpen={isOpenPost}
+            setIsOpen={setIsOpenPost}
+          >
+            <CreateBlog></CreateBlog>
+          </Control.Popup>
           <h1>asdasdasd</h1>
           <h1>asdasdasd</h1>
           <h1>asdasdasd</h1>
