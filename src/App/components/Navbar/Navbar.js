@@ -70,6 +70,13 @@ function Navbar(props) {
           onClick={() => setIsOpenSignUp(true)}
           variant="outlined"
         />
+        <br/>
+         <Control.Button
+              onClick={() => setIsOpenLogin(true)}
+                sx={{ margin: "6px" }}
+                variant="outlined"
+                text="Login"
+              />
       </Control.Drawer>
     </>
   );
