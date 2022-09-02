@@ -21,7 +21,8 @@ class DateOfBirth extends Component {
             value={this.props.value}
             name={name}
             onChange={(newValue) => {
-              console.log(newValue);
+            
+             
               this.props.setValue(newValue);
             }}
             renderInput={(params) => (

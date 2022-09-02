@@ -3,7 +3,7 @@ import Formsy from "formsy-react";
 import InputController from "../InputController";
 import useErrors from "../../Hook/useErrors";
 
-import { useForm } from "../../Hook/useForm";
+import { useForm } from "../../Hook/useRegisterForm";
 import { makeStyles } from "@mui/styles";
 import DateOFBirth from "../DateOfBirth";
 const useStyles = makeStyles((theme) => ({

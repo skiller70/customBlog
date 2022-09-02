@@ -4,11 +4,11 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { colors, Paper } from "@mui/material";
-import { Provider } from "react-redux";
-import { store } from "./reduxtoolkit/reduxstore/store";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import MainMenu from "./components/mainmenu/MainMenu";
+import { useDispatch } from "react-redux";
 
 const queryClient = new QueryClient();
 const customTheme = createTheme({
@@ -32,11 +32,13 @@ const customTheme = createTheme({
 });
 
 function App() {
+  const dispatch = useDispatch()
+  dispatch({type:"@@router/LOCATION_CHANGE"})
   return (
     <React.Fragment>
       <CssBaseline />
 
-      <Provider store={store}>
+     
         <ThemeProvider theme={customTheme}>
           <QueryClientProvider client={queryClient}>
             <Paper>
@@ -50,7 +52,7 @@ function App() {
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ThemeProvider>
-      </Provider>
+     
     </React.Fragment>
   );
 }

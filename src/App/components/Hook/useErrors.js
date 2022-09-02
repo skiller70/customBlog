@@ -6,7 +6,7 @@ const commonMessage = {
   isAlpha: "Name must contain characters in name",
   isEmptyString: "please enter username",
   isEmail: "Please enter a valid email address",
-  isDate: "User must be of age 18 years or above"
+  isDate: "User must be of age 8 years or above"
 };
 
 const passwordError = {

@@ -3,13 +3,35 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App/App";
 import reportWebVitals from "./reportWebVitals";
-
+import {Routes,Route} from "react-router-dom"
+import { HistoryRouter as Router } from "redux-first-history/rr6";
+import { Provider } from "react-redux";
+import { history,store  } from "./App/reduxtoolkit/reduxstore/store";
+import RouteTest from "./RouteTest"
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+
+
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+    <Provider store={store}>
+    <Router history={history} >
     <App />
-  </React.StrictMode>
+
+
+   
+<Routes>
+
+      <Route path="/" element={<App/>}/>
+      <Route path="/ggwp" element={<RouteTest/>}> </Route>
+      </Routes>
+    
+
+    </Router>
+    </Provider>
+
+  
+  //  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

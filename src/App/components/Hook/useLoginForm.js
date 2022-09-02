@@ -1,7 +1,9 @@
 import { useState } from "react";
+import {useDispatch} from "react-redux"
 
 // CUSTOM FORM HOOKS *******************************************************************************************
 export const useLoginForm = (initialFValue) => {
+  const dispatch = useDispatch()
   const [canSubmit, setCanSubmit] = useState(false);
 
   console.log(canSubmit)
@@ -13,7 +15,8 @@ export const useLoginForm = (initialFValue) => {
   };
   const onValidSubmit = (model) => {
     //REDUX DISPATCH
-    console.log(model)
+   dispatch({type:"LOGIN_USER",payload : model})
+
   };
 
   return { onValid, onInvalid, onValidSubmit, canSubmit };

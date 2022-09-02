@@ -3,7 +3,7 @@ import Formsy from "formsy-react";
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import  {Grid}   from "@mui/material";
+import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useBlogForm } from "../Hook/useBlogForm";
 import { Stack } from "@mui/system";
@@ -20,7 +20,6 @@ function CreateBlog(props) {
   const classes = useStyles();
 
   const { onValid, onInvalid, onValidSubmit, canSubmit } = useBlogForm();
-  
 
   return (
     <Formsy
@@ -32,21 +31,15 @@ function CreateBlog(props) {
       <Grid container>
         <Grid xs={12} md={10} item>
           {" "}
-          <InputController
-     
-            name="title"
-            label="Tile"
-            required
-          ></InputController>
+          <InputController name="title" label="Tile" required></InputController>
         </Grid>
         <Grid xs={12} md={10} item>
           {" "}
           <InputController
-          
             name="subject"
             label="Subject"
             required
-          ></InputController>
+          ></InputController> 
         </Grid>
         <Grid xs={12} md={10} item>
           <Stack
@@ -69,7 +62,6 @@ function CreateBlog(props) {
         <Grid xs={12} md={10} item>
           {" "}
           <InputController
-       
             id="standard-multiline-static"
             multiline
             rows="4"

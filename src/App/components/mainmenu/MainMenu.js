@@ -8,6 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import { Box } from "@mui/system";
 import CreateBlog from "../createblog/CreateBlog";
+import {useDispatch, useSelector} from "react-redux"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -24,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
 //*****************************************************************************
 
 function MainMenu(props) {
+  const dispatch = useDispatch();
+  const profile = useSelector((state)=>state.userProfile.PROFILE);
+  
   const classes = useStyles();
   const [blogPage, setBlogPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
@@ -33,20 +37,18 @@ function MainMenu(props) {
       setLastPage(data.data.pages);
     });
   }, [blogPage]);
-  console.log(lastPage);
-  console.log(setBlogPage);
-
+console.log(lastPage)
+console.log(setBlogPage)
   return (
     <>
-
-<Control.Popup
-            maxWidth="sm"
-            title="Blog Post"
-            isOpen={isOpenPost}
-            setIsOpen={setIsOpenPost}
-          >
-            <CreateBlog></CreateBlog>
-          </Control.Popup>
+      <Control.Popup
+        maxWidth="sm"
+        title="Blog Post"
+        isOpen={isOpenPost}
+        setIsOpen={setIsOpenPost}
+      >
+        <CreateBlog></CreateBlog>
+      </Control.Popup>
       <Grid container>
         <Grid sm={0} md={2} item></Grid>
         <Grid sm={12} md={7} item>
@@ -59,7 +61,14 @@ function MainMenu(props) {
               zIndex: 1,
             })}
           >
-            <Fab onClick={()=>{setIsOpenPost(true)}} className={classes.addButton} color="primary" aria-label="add">
+            <Fab
+              onClick={() => {
+                setIsOpenPost(true);
+              }}
+              className={classes.addButton}
+              color="primary"
+              aria-label="add"
+            >
               <AddIcon />
             </Fab>
           </Box>
@@ -68,10 +77,11 @@ function MainMenu(props) {
           <BlogCard></BlogCard>
         </Grid>
         <Grid sm={0} md={3} item>
-        
           <h1>asdasdasd</h1>
           <h1>asdasdasd</h1>
-          <h1>asdasdasd</h1>
+          <h1>{profile.name}</h1>
+
+          <button onClick={()=>{dispatch({type:"@@router/LOCATION_CHANGE"})}}> checkRoute</button>
           <h1>asdasdasd</h1>
         </Grid>
       </Grid>

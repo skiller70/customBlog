@@ -6,7 +6,8 @@ import { Grid, Toolbar } from "@mui/material";
 import Login from "../Form/login/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
-
+import { push } from "redux-first-history";
+import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor : "white",
@@ -18,10 +19,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Navbar(props) {
+  const dispatch = useDispatch()
+  const POPUP = useSelector(state=>state.popup)
+  console.log(POPUP)
   const classes = useStyles();
   const [isOpenSignUp, setIsOpenSignUp] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [isOpenLogin,setIsOpenLogin] = useState(false)
+
   return (
     <>
       <AppBar  position="fixed"   elevation={2}>
@@ -38,10 +42,11 @@ function Navbar(props) {
             </Grid>
             <Grid sx={{ display: { xs: "none", md: "block" } }} item>
               <Control.Button
-              onClick={() => setIsOpenLogin(true)}
+              onClick={() => dispatch({type:"setLoginPop",payload :true})}
                 sx={{ margin: "6px" }}
                 variant="outlined"
                 text="Login"
+                
               />
 
               <Control.Button
@@ -55,7 +60,7 @@ function Navbar(props) {
       </AppBar>
 
 
-      <Control.Popup   maxWidth="sm" title="Login" isOpen={isOpenLogin} setIsOpen={setIsOpenLogin}>
+      <Control.Popup   maxWidth="sm" title="Login" isOpen={POPUP.LOGIN_POP} setIsOpen="setLoginPop">
         <Login/>
       </Control.Popup>
 
@@ -72,11 +77,25 @@ function Navbar(props) {
         />
         <br/>
          <Control.Button
-              onClick={() => setIsOpenLogin(true)}
+              onClick={() =>  dispatch({type:"setLoginPop",payload :true})}
                 sx={{ margin: "6px" }}
                 variant="outlined"
                 text="Login"
               />
+              <br/>
+              <Control.Button
+              onClick={() => {
+                localStorage.removeItem("token")
+               
+                dispatch(push("/home"))
+
+
+              } }
+                sx={{ margin: "6px" }}
+                variant="outlined"
+                text="Logout"
+              />
+
       </Control.Drawer>
     </>
   );
