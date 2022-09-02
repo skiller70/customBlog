@@ -2,13 +2,15 @@ import React from "react";
 import { Drawer as MuiDrawer, Box, Typography, Grid } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Control from "./Control";
+import { useDispatch } from "react-redux";
 
 function Drawer(props) {
+  const dispatch = useDispatch();
   const { openDrawer, setOpenDrawer, children } = props;
   return (
     <MuiDrawer
       onClose={() => {
-        setOpenDrawer(false);
+        ;
       }}
       variant="temporary"
       open={openDrawer}
@@ -23,7 +25,7 @@ function Drawer(props) {
         <Grid item xs={4}>
           <Control.Button
             onClick={() => {
-              setOpenDrawer(false);
+              dispatch({type :`${setOpenDrawer}`, payload : false});
             }}
             text="X"
             variant="contained"

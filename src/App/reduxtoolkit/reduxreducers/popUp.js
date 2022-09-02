@@ -4,6 +4,7 @@ const initialState = {
   REGISTER_POP: false,
   LOGIN_POP: false,
   UPLOAD_POP: false,
+  DRAWER_POP: false
 };
 export const allPopup = createReducer(initialState, {
   setRegisterPop: (state, action) => {
@@ -14,5 +15,8 @@ export const allPopup = createReducer(initialState, {
   },
   setUploadPop: (state, action) => {
     state.UPLOAD_POP = action.payload;
+  },
+  setDrawerPop: (state, action) => {
+    state.DRAWER_POP = action.payload;
   },
 });

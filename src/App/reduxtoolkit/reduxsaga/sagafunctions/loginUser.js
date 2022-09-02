@@ -8,6 +8,7 @@ try {
     const result = yield call(axios.post,LOGIN_END_POINT,action.payload)
    
   localStorage.setItem("token",result.data)
+  yield put({type:"@@router/LOCATION_CHANGE"})
   yield put({type:"setLoading",payload:false})
   yield put({type:"setLoginPop",payload:false})
   

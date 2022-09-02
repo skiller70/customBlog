@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RegisterForm from "../Form/Register/RegisterForm";
 import Control from "../ReuseComponents/Control";
 import { makeStyles } from "@mui/styles";
@@ -6,96 +6,121 @@ import { Grid, Toolbar } from "@mui/material";
 import Login from "../Form/login/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
-import { push } from "redux-first-history";
 import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor : "white",
+    backgroundColor: "white",
     [theme.breakpoints.only("md")]: {
       display: "none",
     },
   },
-
 }));
 
 function Navbar(props) {
-  const dispatch = useDispatch()
-  const POPUP = useSelector(state=>state.popup)
-  console.log(POPUP)
+  const dispatch = useDispatch();
+  const POPUP = useSelector((state) => state.popup);
+  const USER_STATUS = useSelector((state) => state.userProfile.PROFILE.id);
+
+  console.log(POPUP.REGISTER_POP);
   const classes = useStyles();
-  const [isOpenSignUp, setIsOpenSignUp] = useState(false);
-  const [openDrawer, setOpenDrawer] = useState(false);
+ 
 
   return (
     <>
-      <AppBar  position="fixed"   elevation={2}>
-        <Toolbar className={classes.root} >
+      <AppBar position="fixed" elevation={2}>
+        <Toolbar className={classes.root}>
           <Grid container>
             <Grid sx={{ display: { xs: "block", md: "none" } }} item>
-              <Control.IconButton onClick={() => setOpenDrawer(true)}>
+              <Control.IconButton onClick={()=>{
+                dispatch({type:"setDrawerPop",payload : true})
+              }}>
                 <MenuIcon color="primary" fontSize="large" />
               </Control.IconButton>
             </Grid>
-            <Grid item sm>
-             
-       
-            </Grid>
+            <Grid item sm></Grid>
             <Grid sx={{ display: { xs: "none", md: "block" } }} item>
-              <Control.Button
-              onClick={() => dispatch({type:"setLoginPop",payload :true})}
-                sx={{ margin: "6px" }}
-                variant="outlined"
-                text="Login"
-                
-              />
+              {USER_STATUS ? null : (
+                <Control.Button
+                  onClick={() =>
+                    dispatch({ type: "setLoginPop", payload: true })
+                  }
+                  sx={{ margin: "6px" }}
+                  variant="outlined"
+                  text="Login"
+                />
+              )}
 
-              <Control.Button
-                text="  Sign Up"
-                onClick={() => setIsOpenSignUp(true)}
-                variant="outlined"
-              />
+              {USER_STATUS ? (
+                <Control.Button
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    dispatch({type:"LOGOUT_USER"})
+                  }}
+                  sx={{ margin: "6px" }}
+                  variant="outlined"
+                  text="Logout"
+                />
+              ) : (
+                <Control.Button
+                  text="  Sign Up"
+                  onClick={() =>
+                    dispatch({ type: "setRegisterPop", payload: true })
+                  }
+                  variant="outlined"
+                />
+              )}
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
 
-
-      <Control.Popup   maxWidth="sm" title="Login" isOpen={POPUP.LOGIN_POP} setIsOpen="setLoginPop">
-        <Login/>
+      <Control.Popup
+        maxWidth="sm"
+        title="Login"
+        isOpen={POPUP.LOGIN_POP}
+        setIsOpen="setLoginPop"
+      >
+        <Login />
       </Control.Popup>
 
-      
-      <Control.Popup title="Sign Up" isOpen={isOpenSignUp} setIsOpen={setIsOpenSignUp}>
+      <Control.Popup
+        title="Sign Up"
+        isOpen={POPUP.REGISTER_POP}
+        setIsOpen="setRegisterPop"
+      >
         <RegisterForm />
       </Control.Popup>
 
-      <Control.Drawer setOpenDrawer={setOpenDrawer} openDrawer={openDrawer}>
-        <Control.Button
-          text="  Sign Up"
-          onClick={() => setIsOpenSignUp(true)}
-          variant="outlined"
-        />
-        <br/>
-         <Control.Button
-              onClick={() =>  dispatch({type:"setLoginPop",payload :true})}
-                sx={{ margin: "6px" }}
-                variant="outlined"
-                text="Login"
-              />
-              <br/>
-              <Control.Button
-              onClick={() => {
-                localStorage.removeItem("token")
-               
-                dispatch(push("/home"))
+      <Control.Drawer setOpenDrawer="setDrawerPop" openDrawer={POPUP.DRAWER_POP}>
+        {USER_STATUS ? null : (
+          <Control.Button
+            onClick={() => dispatch({ type: "setLoginPop", payload: true })}
+            sx={{ margin: "6px" }}
+            variant="outlined"
+            text="Login"
+          />
+        )}
 
+        <br />
 
-              } }
-                sx={{ margin: "6px" }}
-                variant="outlined"
-                text="Logout"
-              />
-
+        {USER_STATUS ? (
+          <Control.Button
+            onClick={() => {
+              localStorage.removeItem("token");
+              dispatch({type:"LOGOUT_USER"})
+            }}
+            sx={{ margin: "6px" }}
+            variant="outlined"
+            text="Logout"
+          />
+        ) : (
+          <Control.Button
+            text="  Sign Up"
+            onClick={() =>  dispatch({ type: "setRegisterPop", payload: true })}
+            variant="outlined"
+          />
+        )}
+        <br />
       </Control.Drawer>
     </>
   );

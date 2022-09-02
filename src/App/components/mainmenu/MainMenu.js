@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
-import { END_POINT } from "../api/ApiEndpoint";
+
 import { makeStyles } from "@mui/styles";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Control from "../ReuseComponents/Control";
 import BlogCard from "../ReuseComponents/Card";
 import AddIcon from "@mui/icons-material/Add";
@@ -32,13 +32,11 @@ function MainMenu(props) {
   const [blogPage, setBlogPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
   const [isOpenPost, setIsOpenPost] = useState(false);
-  useEffect(() => {
-    END_POINT.get("/pages").then((data) => {
-      setLastPage(data.data.pages);
-    });
-  }, [blogPage]);
+  
 console.log(lastPage)
 console.log(setBlogPage)
+console.log(setLastPage)
+console.log(blogPage)
   return (
     <>
       <Control.Popup
