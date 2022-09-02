@@ -1,8 +1,7 @@
 import axios from "axios";
-import { call, takeLatest, takeEvery, put } from "redux-saga/effects";
+import { call,put } from "redux-saga/effects";
 import { REGISTER_END_POINT } from "../../../components/api/ApiEndpoint";
 import { push } from "redux-first-history";
-import jwt from "jwt-decode";
 export function* register_users(action) {
   console.log(action.payload);
   
