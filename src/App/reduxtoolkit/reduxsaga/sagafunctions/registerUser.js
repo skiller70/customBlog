@@ -12,6 +12,7 @@ export function* register_users(action) {
     yield localStorage.setItem("token", result.data);
     yield put({type:"@@router/LOCATION_CHANGE"})
     yield put({type : "setRegisterPop",payload : false})
+    yield put({type:"setDrawerPop",payload:false})
     yield put({ type: "setLoading", payload: false });
    
   } catch (error) {

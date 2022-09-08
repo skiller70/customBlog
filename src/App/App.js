@@ -32,27 +32,25 @@ const customTheme = createTheme({
 });
 
 function App() {
-  const dispatch = useDispatch()
-  dispatch({type:"@@router/LOCATION_CHANGE"})
+  const dispatch = useDispatch();
+  dispatch({ type: "@@router/LOCATION_CHANGE" });
   return (
     <React.Fragment>
       <CssBaseline />
 
-     
-        <ThemeProvider theme={customTheme}>
-          <QueryClientProvider client={queryClient}>
-            <Paper>
-              <Navbar />
-            </Paper>
+      <ThemeProvider theme={customTheme}>
+        <QueryClientProvider client={queryClient}>
+          <Paper>
+            <Navbar />
+          </Paper>
 
-            <Paper elevation={0} sx={{ marginTop: 10, height: "100%" }}>
-              <MainMenu />
-            
-            </Paper>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-        </ThemeProvider>
+          <Paper elevation={0} sx={{ marginTop: 10, height: "100%" }}>
+            <MainMenu />
+          </Paper>
      
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ThemeProvider>
     </React.Fragment>
   );
 }

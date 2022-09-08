@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Avatar, IconButton, Collapse } from "@mui/material";
+import { Typography, Avatar, IconButton, Collapse, Box } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -8,8 +8,15 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import EditIcon from "@mui/icons-material/Edit";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Skeleton from "@mui/material/Skeleton";
+import { useSelector } from "react-redux";
+import { useDeletePost } from "../api/blogPostOperation";
+import LoadingSpinner from "./LoadingSpinner";
+import Backdrop from '@mui/material/Backdrop';
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -30,45 +37,108 @@ const useStyles = makeStyles((theme) => ({
 function BlogCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState();
+  const {mutate,isLoading} = useDeletePost()
+  const PROFILE = useSelector((state) => state.userProfile.PROFILE);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const { img, loading, author,postId } = props;
+
   return (
+
+   
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
-            R
-          </Avatar>
+          loading ? (
+            <Skeleton
+              animation="wave"
+              variant="circular"
+              width={40}
+              height={40}
+            />
+          ) : (
+            <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
+              R
+            </Avatar>
+          )
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          loading ? null : author._id == PROFILE.id ? (
+            <div>
+              <IconButton onClick={()=>{mutate(postId)}}>
+                <DeleteIcon />
+              </IconButton>
+
+              <IconButton>
+                <EditIcon />
+              </IconButton>
+            </div>
+          ) : null
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={
+          loading ? (
+            <Skeleton
+              animation="wave"
+              height={10}
+              width="80%"
+              style={{ marginBottom: 6 }}
+            />
+          ) : (
+            "Shrimp and Chorizo Paella"
+          )
+        }
+        subheader={
+          loading ? (
+            <Skeleton animation="wave" height={10} width="40%" />
+          ) : (
+            "September 14, 2016"
+          )
+        }
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
-      </CardContent>
+ {isLoading? <Backdrop sx={{color:"#fff"}} open={true}><LoadingSpinner/></Backdrop> :null}
+      {loading ? (
+        <Skeleton
+          sx={{ height: 194 }}
+          width={800}
+          animation="wave"
+          variant="rectangular"
+        />
+      ) : (
+        <CardMedia
+          width="100%"
+          component="img"
+          height="194"
+          image={img || "/static/images/cards/paella.jpg"}
+          alt="Paella dish"
+        />
+      )}
+
+      {loading ? (
+        <React.Fragment>
+          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+          <Skeleton animation="wave" height={10} width="80%" />
+        </React.Fragment>
+      ) : (
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            This impressive paella is a perfect party dish and a fun meal to
+            cook together with your guests. Add 1 cup of frozen peas along with
+            the mussels, if you like.
+          </Typography>
+        </CardContent>
+      )}
+
       <CardActions disableSpacing>
         <IconButton sx={{ marginLeft: "15px" }} aria-label="add to favorites">
           <FavoriteBorderOutlinedIcon />
         </IconButton>
+        1
         <IconButton>
           <ModeCommentOutlinedIcon />
         </IconButton>
+        2
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

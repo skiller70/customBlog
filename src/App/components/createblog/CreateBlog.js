@@ -54,7 +54,7 @@ function CreateBlog(props) {
               component="label"
             >
               Upload
-              <InputImage name="image" required />
+              <InputImage name="blogPost" required/>
             </Button>
           </Stack>
         </Grid>

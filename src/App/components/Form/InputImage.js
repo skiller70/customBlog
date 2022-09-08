@@ -3,18 +3,13 @@ import { withFormsy } from "formsy-react";
 
 class InputImage extends Component {
   changeValue = (e) => {
-    this.props.setValue(e.target.value);
+    this.props.setValue(e.target.files[0]);
   };
   render() {
     const { name } = this.props;
+
     return (
-      <input
-        onChange={this.changeValue}
-        name={name}
-        hidden
-        type="file"
-        accept="image/*"
-      ></input>
+      <input hidden name={name} type="file" accept="image/*" onChange={this.changeValue}></input>
     );
   }
 }

@@ -21,7 +21,7 @@ function Navbar(props) {
   const POPUP = useSelector((state) => state.popup);
   const USER_STATUS = useSelector((state) => state.userProfile.PROFILE.id);
 
-  console.log(POPUP.REGISTER_POP);
+
   const classes = useStyles();
  
 
@@ -31,13 +31,16 @@ function Navbar(props) {
         <Toolbar className={classes.root}>
           <Grid container>
             <Grid sx={{ display: { xs: "block", md: "none" } }} item>
+           
               <Control.IconButton onClick={()=>{
                 dispatch({type:"setDrawerPop",payload : true})
               }}>
                 <MenuIcon color="primary" fontSize="large" />
               </Control.IconButton>
             </Grid>
-            <Grid item sm></Grid>
+            <Grid item sm>
+            <img style={{width : 50}} src={require("./image/mylogo.png")} alt="" />
+            </Grid>
             <Grid sx={{ display: { xs: "none", md: "block" } }} item>
               {USER_STATUS ? null : (
                 <Control.Button
