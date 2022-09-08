@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import {usePostBlogs} from "../api/blogPostOperation"
 
 // CUSTOM FORM HOOKS *******************************************************************************************
 export const useBlogForm = (initialFValue) => {
   const userId = useSelector(state=>state.userProfile.PROFILE.id)
-  const dispatch = useDispatch()
+ 
   const [canSubmit, setCanSubmit] = useState(false);
-  const {mutate,isLoading,isSuccess}= usePostBlogs()
+  const {mutate}= usePostBlogs()
  
 
 

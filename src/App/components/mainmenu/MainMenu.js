@@ -1,8 +1,6 @@
-import { Grid, Paper } from "@mui/material";
+import { Grid,  } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useEffect, useState } from "react";
 import Control from "../ReuseComponents/Control";
-import BlogCard from "../ReuseComponents/Card";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import { Box } from "@mui/system";
@@ -10,7 +8,7 @@ import CreateBlog from "../createblog/CreateBlog";
 import { useDispatch, useSelector } from "react-redux";
 import AllBLogPosts from "./AllBLogPosts";
 import axios from "axios";
-import { useQuery } from "react-query";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -27,10 +25,7 @@ const useStyles = makeStyles((theme) => ({
 //*****************************************************************************
 
 function MainMenu(props) {
-  const fetchBlogs = async () => {
-    const res = await axios.get("http://localhost:4000/blog/getBlogs");
-    return res.data;
-  };
+
 
 
 

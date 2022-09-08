@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Avatar, IconButton, Collapse, Box } from "@mui/material";
+import { Typography, Avatar, IconButton, Collapse, } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -65,7 +65,7 @@ function BlogCard(props) {
           )
         }
         action={
-          loading ? null : author._id == PROFILE.id ? (
+          loading ? null : author._id === PROFILE.id ? (
             <div>
               <IconButton onClick={()=>{mutate(postId)}}>
                 <DeleteIcon />
