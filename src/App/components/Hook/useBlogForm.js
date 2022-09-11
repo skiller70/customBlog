@@ -1,17 +1,14 @@
 import { useState } from "react";
-import {useSelector } from "react-redux";
-import {usePostBlogs} from "../api/blogPostOperation"
+import { useSelector } from "react-redux";
+import { usePostBlogs } from "../api/blogPostOperation";
 
 // CUSTOM FORM HOOKS *******************************************************************************************
 export const useBlogForm = (initialFValue) => {
-  const userId = useSelector(state=>state.userProfile.PROFILE.id)
- 
+  const userId = useSelector((state) => state.userProfile.PROFILE.id);
+
   const [canSubmit, setCanSubmit] = useState(false);
-  const {mutate}= usePostBlogs()
- 
 
-
-
+  const { mutate } = usePostBlogs();
 
   const onValid = () => {
     setCanSubmit(true);
@@ -21,22 +18,17 @@ export const useBlogForm = (initialFValue) => {
   };
   const onValidSubmit = (model) => {
     //REDUX DISPATCH
-    
-const {blogPost,title,content,subject} = model
 
-const formData = new FormData()
-formData.append('author',userId)
-formData.append('blogPost',blogPost)
-formData.append('title',title)
-formData.append('content',content)
-formData.append('subject',subject)
+    const { blogPost, title, content, subject } = model;
 
+    const formData = new FormData();
+    formData.append("author", userId);
+    formData.append("blogPost", blogPost);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("subject", subject);
 
-  
-    mutate(formData)
-
-  
- 
+    mutate(formData);
   };
 
   return { onValid, onInvalid, onValidSubmit, canSubmit };

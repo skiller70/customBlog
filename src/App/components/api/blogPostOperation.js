@@ -17,15 +17,32 @@ export function usePostBlogs(props) {
   };
 
   return useMutation(postBlogs, {
-    onMutate: () => {
-      dispatch({ type: "setLoading", payload: true });
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData("blog-posts", (oldQueryData) => {
-        return [data,...oldQueryData];
+    onMutate: async (data) => {
+      const objData = {};
+      data.forEach((item, key) => {
+        objData[key] = item;
       });
-      // queryClient.invalidateQueries("blog-posts")
+
+      dispatch({ type: "setLoading", payload: true });
+      // await queryClient.cancelQueries("blog-posts");
       dispatch({ type: "AFTER_POST" });
+      const previousData = queryClient.getQueryData("blog-posts");
+
+      queryClient.setQueryData("blog-posts", (oldQueryData) => {
+        
+        return [objData,...oldQueryData];
+      });
+
+      return {
+        previousData
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("blog-posts");
+      dispatch({ type: "AFTER_POST" });
+    },
+    onError: (error, data, context) => {
+      queryClient.setQueryData("blog-posts", context.previousData);
     },
   });
 }

@@ -105,7 +105,12 @@ function BlogCard(props) {
           animation="wave"
           variant="rectangular"
         />
-      ) : (
+      ) :img == undefined ? <Skeleton
+      sx={{ height: 194 }}
+      width={1100}
+      animation="wave"
+      variant="rectangular"
+    />:(
         <CardMedia
           width="100%"
           component="img"

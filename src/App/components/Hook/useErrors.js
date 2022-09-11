@@ -19,6 +19,7 @@ const usernameError = {
   isAlphanumeric: "Username must be alphanumeric",
   maxLength: "16 character should be max length",
   minLength: "username must be at least 6 to 15 characters in length",
+  isUser : "user already exist"
 };
 
 function useErrors(props) {

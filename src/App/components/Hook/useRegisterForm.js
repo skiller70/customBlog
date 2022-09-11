@@ -6,8 +6,9 @@ import {useDispatch} from "react-redux"
 // CUSTOM FORM HOOKS *******************************************************************************************
 export const useForm = (initialFValue) => {
   const dispatch = useDispatch()
+ 
   const [canSubmit, setCanSubmit] = useState(false);
-  
+
 
   addValidationRule("isDate", (values, value) => {
     if (value) {
@@ -15,6 +16,8 @@ export const useForm = (initialFValue) => {
       return dateOfYear <= 2015;
     }
   });
+
+
 
 
   const onValid = () => {

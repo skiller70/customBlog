@@ -13,7 +13,7 @@ console.log(isError)
 
 
       {isSuccess?data.map((item, index) => {
-        
+        console.log(item.image)
         return (
           <div key={index}>
             <Control.BlogCard img={item.image} author={item.author} postId={item._id}   />
@@ -24,7 +24,7 @@ console.log(isError)
       
       
       
-    }
+    } 
     </div>
   );
 }
