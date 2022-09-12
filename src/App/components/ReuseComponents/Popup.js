@@ -32,6 +32,8 @@ function Popup(props) {
                 <Control.Button
                   onClick={() => {
                     dispatch({type:setIsOpen,payload : {isOpen : false}});
+                    dispatch({type:"searchUsername",payload : null});
+                
                   }}
                   variant={closeBtnVariant || "contained"}
                   color={closeBtnColor || "secondary"}
