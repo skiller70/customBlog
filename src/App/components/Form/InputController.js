@@ -26,7 +26,7 @@ class InputController extends Component {
       <>
         <TextField
           id={id || ""}
-          InputProps={{endAdornment:error?null:this.props.value == ""?null :inputProps}}
+          InputProps={{endAdornment:error?null:this.props.value === ""?null :inputProps}}
           multiline={false || multiline}
           rows={0 || rows}
           onChange={this.changeValue}
