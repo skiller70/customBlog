@@ -1,16 +1,16 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { margin } from "@mui/system";
+
 import React from "react";
 import { useDeletePost } from "../api/blogPostOperation";
 import LoadingSpinner from "../ReuseComponents/LoadingSpinner";
 import Backdrop from "@mui/material/Backdrop";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 function DeletePost(props) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { mutate, isLoading } = useDeletePost();
-  const PROFILE = useSelector((state) => state.userProfile.PROFILE);
+
   const postId = useSelector((state) => state.popup.deleteProps);
-console.log(postId)
+  console.log(postId);
   return (
     <>
       {isLoading ? (
@@ -33,7 +33,10 @@ console.log(postId)
         <Grid xs={4} sm={3} md={1} item>
           <Button
             onClick={() => {
-              dispatch({type : "setConfirmDelete",payload : {postId:"",isOpen : false}});
+              dispatch({
+                type: "setConfirmDelete",
+                payload: { postId: "", isOpen: false },
+              });
             }}
             variant="contained"
             color="primary"
@@ -45,12 +48,13 @@ console.log(postId)
         <Grid xs={2} sm={1} item md={1}></Grid>
 
         <Grid xs={4} sm={3} md={1} item>
-          <Button onClick={()=>{
-            mutate(postId)
-            
-
-
-          }} variant="contained" color="secondary">
+          <Button
+            onClick={() => {
+              mutate(postId);
+            }}
+            variant="contained"
+            color="secondary"
+          >
             Confirm
           </Button>
         </Grid>
