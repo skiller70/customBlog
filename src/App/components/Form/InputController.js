@@ -8,7 +8,7 @@ class InputController extends Component {
 
   changeValue = (e) => {
     this.props.setValue(e.target.value);
-  
+  console.log(this.props.value)
     
    if(e.target.value.length > 5 ){
     this.props.searchUsername(this.props.reduxAction,e.target.value)
@@ -26,7 +26,7 @@ class InputController extends Component {
       <>
         <TextField
           id={id || ""}
-          InputProps={{endAdornment:error?null:this.props.value === ""?null :inputProps}}
+          InputProps={{endAdornment:error?null:this.props.value == ""?null :inputProps}}
           multiline={false || multiline}
           rows={0 || rows}
           onChange={this.changeValue}

@@ -97,7 +97,7 @@ function Navbar(props) {
       <Control.Drawer setOpenDrawer="setDrawerPop" openDrawer={POPUP.DRAWER_POP}>
         {USER_STATUS ? null : (
           <Control.Button
-            onClick={() => dispatch({ type: "setLoginPop", payload: true })}
+            onClick={() => dispatch({ type: "setLoginPop", payload : {isOpen : true}})}
             sx={{ margin: "6px" }}
             variant="outlined"
             text="Login"
@@ -119,7 +119,7 @@ function Navbar(props) {
         ) : (
           <Control.Button
             text="  Sign Up"
-            onClick={() =>  dispatch({ type: "setRegisterPop", payload: true })}
+            onClick={() =>  dispatch({ type: "setRegisterPop",payload : {isOpen : true}  })}
             variant="outlined"
           />
         )}
