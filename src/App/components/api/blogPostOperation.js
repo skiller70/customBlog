@@ -72,6 +72,7 @@ export function useFetchBlog(props) {
 //************************************************ DELETE BLOG POST***************************************
 
 export function useDeletePost() {
+  const dispatch = useDispatch()
   const queryClient = useQueryClient();
   const deleteBlog = async (postId) => {
     const { data } = await axios.delete(
@@ -83,6 +84,7 @@ export function useDeletePost() {
   const { isError, isLoading, mutate } = useMutation(deleteBlog, {
     onSuccess: () => {
       queryClient.invalidateQueries("blog-posts");
+      dispatch({type : "setConfirmDelete",payload : {isOpen : false}})
     },
   });
 

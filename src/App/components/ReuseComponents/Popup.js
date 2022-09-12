@@ -14,7 +14,7 @@ import Backdrop from '@mui/material/Backdrop';
 function Popup(props) {
   const LOADING = useSelector(state=>state.userProfile.LOADING)
   const dispatch = useDispatch()
-  const { title, children, isOpen, setIsOpen,maxWidth } = props;
+  const { title, children, isOpen, setIsOpen,maxWidth ,closeBtnColor,closeBtnVariant } = props;
   return (
     <>
 
@@ -22,19 +22,19 @@ function Popup(props) {
         <DialogTitle>
      
             <Grid container>  
-              <Grid  xs={9} md={10} item> 
+              <Grid  xs={9} sm={10} md={11} item> 
                 <Typography variant="h5" component="div">
                   {title}
                 </Typography>
               </Grid>
               
-              <Grid md={2} xs={2} item>
+              <Grid md={1} sm={2} xs={3} item>
                 <Control.Button
                   onClick={() => {
-                    dispatch({type:setIsOpen,payload : false});
+                    dispatch({type:setIsOpen,payload : {isOpen : false}});
                   }}
-                  variant="contained"
-                  color="secondary"
+                  variant={closeBtnVariant || "contained"}
+                  color={closeBtnColor || "secondary"}
                   text="X"
                 />
               </Grid>

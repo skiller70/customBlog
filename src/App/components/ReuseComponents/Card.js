@@ -12,10 +12,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Skeleton from "@mui/material/Skeleton";
-import { useSelector } from "react-redux";
-import { useDeletePost } from "../api/blogPostOperation";
-import LoadingSpinner from "./LoadingSpinner";
-import Backdrop from '@mui/material/Backdrop';
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -36,8 +35,9 @@ const useStyles = makeStyles((theme) => ({
 
 function BlogCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch()
   const [expanded, setExpanded] = useState();
-  const {mutate,isLoading} = useDeletePost()
+ 
   const PROFILE = useSelector((state) => state.userProfile.PROFILE);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -67,7 +67,7 @@ function BlogCard(props) {
         action={
           loading ? null : author._id === PROFILE.id ? (
             <div>
-              <IconButton onClick={()=>{mutate(postId)}}>
+              <IconButton onClick={()=>{dispatch({type:"setConfirmDelete",payload:{isOpen : true,postId}})}}>
                 <DeleteIcon />
               </IconButton>
 
@@ -97,7 +97,7 @@ function BlogCard(props) {
           )
         }
       />
- {isLoading? <Backdrop sx={{color:"#fff"}} open={true}><LoadingSpinner/></Backdrop> :null}
+
       {loading ? (
         <Skeleton
           sx={{ height: 194 }}

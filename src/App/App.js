@@ -19,6 +19,9 @@ const customTheme = createTheme({
     secondary: {
       main: colors.red[500],
     },
+    dark: {
+      main: "#E8EAF6",
+    },
   },
   // components: {
   //   MuiAppBar: {

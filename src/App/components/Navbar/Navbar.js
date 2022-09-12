@@ -33,7 +33,7 @@ function Navbar(props) {
             <Grid sx={{ display: { xs: "block", md: "none" } }} item>
            
               <Control.IconButton onClick={()=>{
-                dispatch({type:"setDrawerPop",payload : true})
+                dispatch({type:"setDrawerPop",payload : {isOpen : true}})
               }}>
                 <MenuIcon color="primary" fontSize="large" />
               </Control.IconButton>
@@ -45,7 +45,7 @@ function Navbar(props) {
               {USER_STATUS ? null : (
                 <Control.Button
                   onClick={() =>
-                    dispatch({ type: "setLoginPop", payload: true })
+                    dispatch({ type: "setLoginPop", payload : {isOpen : true} })
                   }
                   sx={{ margin: "6px" }}
                   variant="outlined"
@@ -67,7 +67,7 @@ function Navbar(props) {
                 <Control.Button
                   text="  Sign Up"
                   onClick={() =>
-                    dispatch({ type: "setRegisterPop", payload: true })
+                    dispatch({ type: "setRegisterPop", payload : {isOpen : true} })
                   }
                   variant="outlined"
                 />

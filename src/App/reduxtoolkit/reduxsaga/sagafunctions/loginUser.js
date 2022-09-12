@@ -10,7 +10,7 @@ try {
   localStorage.setItem("token",result.data)
   yield put({type:"@@router/LOCATION_CHANGE"})
   yield put({type:"setLoading",payload:false})
-  yield put({type:"setLoginPop",payload:false})
+  yield put({type:"setLoginPop",payload:{isOpen:false}})
   
    
 } catch (error) {

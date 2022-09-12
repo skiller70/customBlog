@@ -8,7 +8,7 @@ class InputController extends Component {
 
   changeValue = (e) => {
     this.props.setValue(e.target.value);
-    console.log(e.target.value)
+  
     
    if(e.target.value.length > 5 ){
     this.props.searchUsername(this.props.reduxAction,e.target.value)

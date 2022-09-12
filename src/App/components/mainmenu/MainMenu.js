@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import CreateBlog from "../createblog/CreateBlog";
 import { useDispatch, useSelector } from "react-redux";
 import AllBLogPosts from "./AllBLogPosts";
-
+import DeletePost from "./DeletePost";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,12 +38,23 @@ function MainMenu(props) {
 
 
     <Grid container>
-
+      {/* UPLOAD POPUP */}
       <Control.Popup isOpen={POPUP.UPLOAD_POP} setIsOpen="setUploadPop" title="Create Blog" >
       <CreateBlog/>
       </Control.Popup>
       
-{console.log("render")}
+    {/* DELETE POPUP */}
+
+
+    <Control.Popup title="Delete Post"  closeBtnColor="dark"  setIsOpen="setConfirmDelete" isOpen={POPUP.deletePost_pop}>
+    <DeletePost/>
+    </Control.Popup>
+
+
+
+
+
+
       <Grid sm={0} md={2} item></Grid>
       <Grid sm={12} md={7} item>
         {/* UPLOAD BUTTON */}
@@ -59,9 +70,9 @@ function MainMenu(props) {
           <Fab
             onClick={() => {
               if (profile.id) {
-                dispatch({ type: "setUploadPop", payload: true });
+                dispatch({ type: "setUploadPop",payload : {isOpen : true}});
               } else {
-                dispatch({ type: "setLoginPop", payload: true });
+                dispatch({ type: "setLoginPop", payload :{isOpen : true}});
               }
             }}
             className={classes.addButton}
