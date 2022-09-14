@@ -1,6 +1,10 @@
 import { MAIN_END_POINT } from "./ApiEndpoint";
 import axios from "axios";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  useMutation,
+ useQueryClient,
+  useInfiniteQuery,
+} from "react-query";
 import { useDispatch } from "react-redux";
 
 //************************************************ POST BLOG POST***************************************
@@ -29,13 +33,12 @@ export function usePostBlogs(props) {
       const previousData = queryClient.getQueryData("blog-posts");
 
       queryClient.setQueryData("blog-posts", (oldQueryData) => {
-        
-        return [objData,...oldQueryData];
+        return [objData, ...oldQueryData];
       });
 
       return {
-        previousData
-      }
+        previousData,
+      };
     },
     onSettled: () => {
       queryClient.invalidateQueries("blog-posts");
@@ -49,30 +52,51 @@ export function usePostBlogs(props) {
 //************************************************ FETCH BLOG POST***************************************
 
 export function useFetchBlog(props) {
-  const fetchBlogPost = async () => {
-    const { data } = await axios.get(`${MAIN_END_POINT}/getBlogs`);
+  const fetchBlogPost = async (queryFunctionContext) => {
+    const pageParams = queryFunctionContext.pageParam
+      ? queryFunctionContext.pageParam
+      : 1;
+
+    const { data } = await axios.get(
+      `${MAIN_END_POINT}/getBlogs?page=${pageParams}&limit=3`
+    );
+
     return data;
   };
-  const { isLoading, isError, data, isSuccess, isStale } = useQuery(
-    "blog-posts",
-    fetchBlogPost,
-    {
-      retry: 0,
-    }
-  );
+  const {
+    isLoading,
+    isError,
+    data,
+    isSuccess,
+    isStale,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+  } = useInfiniteQuery(["blog-posts"], fetchBlogPost, {
+    getNextPageParam: (lastPage, page) => {
+      if (page.length < lastPage.lastPage) {
+        return page.length + 1;
+      } else {
+        return undefined;
+      }
+    },
+  });
   return {
     isLoading,
     isError,
     data,
     isSuccess,
     isStale,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
   };
 }
 
 //************************************************ DELETE BLOG POST***************************************
 
 export function useDeletePost() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const deleteBlog = async (postId) => {
     const { data } = await axios.delete(
@@ -84,7 +108,7 @@ export function useDeletePost() {
   const { isError, isLoading, mutate } = useMutation(deleteBlog, {
     onSuccess: () => {
       queryClient.invalidateQueries("blog-posts");
-      dispatch({type : "setConfirmDelete",payload : {isOpen : false}})
+      dispatch({ type: "setConfirmDelete", payload: { isOpen: false } });
     },
   });
 
