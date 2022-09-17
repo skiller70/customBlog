@@ -33,7 +33,7 @@ function RegisterForm(props) {
       onValidSubmit={onValidSubmit}
       onInvalid={onInvalid}
     >
-      {console.log("render")}
+     
       <Grid container>
         <Grid item xs={12} md={6}>
           <InputController
@@ -49,8 +49,8 @@ function RegisterForm(props) {
             validations={`minLength:6,isAlphanumeric,maxLength:16`}
             validationErrors={usernameError}
             reduxAction={"SEARCH_USERNAME"}
-            dynamic={SEARCH_USERNAME.USERNAME}
-            dynamicError={SEARCH_USERNAME.ERROR}
+            dynamicError={SEARCH_USERNAME.USERNAME}
+            dynamicErrorText={SEARCH_USERNAME.ERROR}
             inputProps={
               <InputAdornment position="end">
                 <SearchUsername />

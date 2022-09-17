@@ -7,6 +7,7 @@ import { createBrowserHistory } from "history";
 import {USER_PROFILE} from "../reduxreducers/userProfile"
 import { allPopup } from "../reduxreducers/popUp";
 import {searchData} from "../reduxreducers/searchData"
+import { Error_handler } from "../reduxreducers/errorHandler";
 const {
     createReduxHistory,
     routerMiddleware,
@@ -19,7 +20,7 @@ const saga = createSagaMiddleware()
 
  export const store = configureStore({
 
-reducer : {isRegisterOpen : dialogReducers,userProfile : USER_PROFILE, popup:allPopup,searchUser : searchData,router: routerReducer },
+reducer : {isRegisterOpen : dialogReducers,userProfile : USER_PROFILE, popup:allPopup,errorHandler : Error_handler,searchUser : searchData,router: routerReducer },
 middleware : (getDefaultMiddleware)=>getDefaultMiddleware().concat(saga,routerMiddleware)
 
 

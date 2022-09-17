@@ -12,7 +12,7 @@ import { END_POINT } from "./ApiEndpoint";
 
 //   const { data, refetch } = useQuery(["ggggggg", props], fetchOwner, {
 //     enabled: false,
-//   });
+//   });  
 
 //   return {
 //     data,

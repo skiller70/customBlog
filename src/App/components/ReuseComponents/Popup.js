@@ -33,6 +33,7 @@ function Popup(props) {
                   onClick={() => {
                     dispatch({type:setIsOpen,payload : {isOpen : false}});
                     dispatch({type:"searchUsername",payload : null});
+                    dispatch({type:"setGlobalError",payload : {error : false,error_status : ""}});
                 
                   }}
                   variant={closeBtnVariant || "contained"}

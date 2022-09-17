@@ -1,10 +1,6 @@
 import { MAIN_END_POINT } from "./ApiEndpoint";
 import axios from "axios";
-import {
-  useMutation,
- useQueryClient,
-  useInfiniteQuery,
-} from "react-query";
+import { useMutation, useQueryClient, useInfiniteQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
 //************************************************ POST BLOG POST***************************************
@@ -26,26 +22,36 @@ export function usePostBlogs(props) {
       data.forEach((item, key) => {
         objData[key] = item;
       });
-
-      dispatch({ type: "setLoading", payload: true });
-      // await queryClient.cancelQueries("blog-posts");
       dispatch({ type: "AFTER_POST" });
-      const previousData = queryClient.getQueryData("blog-posts");
-
-      queryClient.setQueryData("blog-posts", (oldQueryData) => {
-        return [objData, ...oldQueryData];
+      dispatch({
+        type: "setBlogPosting",
+        payload: {
+          blog_posting: true,
+          blog_details: {
+            content: objData.content,
+            subject: objData.subject,
+            title: objData.title,
+          },
+        },
       });
-
-      return {
-        previousData,
-      };
     },
-    onSettled: () => {
+    onSettled: (data) => {
       queryClient.invalidateQueries("blog-posts");
-      dispatch({ type: "AFTER_POST" });
+      dispatch({
+        type: "setBlogPosting",
+        payload: {
+          blog_posting: true,
+          blog_details: {
+            content: data.content,
+            subject: data.subject,
+            title: data.title,
+          },
+        },
+      });
+      
     },
     onError: (error, data, context) => {
-      queryClient.setQueryData("blog-posts", context.previousData);
+      console.log("something went wrong")
     },
   });
 }
@@ -61,7 +67,7 @@ export function useFetchBlog(props) {
       `${MAIN_END_POINT}/getBlogs?page=${pageParams}&limit=3`
     );
 
-    return data;
+    return { data: data.data, pageParam: data.pageParam };
   };
   const {
     isLoading,
@@ -74,7 +80,7 @@ export function useFetchBlog(props) {
     isFetching,
   } = useInfiniteQuery(["blog-posts"], fetchBlogPost, {
     getNextPageParam: (lastPage, page) => {
-      if (page.length < lastPage.lastPage) {
+      if (page.length < lastPage.pageParam) {
         return page.length + 1;
       } else {
         return undefined;
@@ -106,7 +112,7 @@ export function useDeletePost() {
   };
 
   const { isError, isLoading, mutate } = useMutation(deleteBlog, {
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries("blog-posts");
       dispatch({ type: "setConfirmDelete", payload: { isOpen: false } });
     },

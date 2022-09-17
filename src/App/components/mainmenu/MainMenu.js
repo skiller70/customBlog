@@ -35,9 +35,10 @@ function MainMenu(props) {
   const classes = useStyles();
 
   return (
-
-
     <Grid container>
+      
+    {/* {console.log("main menu render")} */}
+
       {/* UPLOAD POPUP */}
       <Control.Popup isOpen={POPUP.UPLOAD_POP} setIsOpen="setUploadPop" title="Create Blog" >
       <CreateBlog/>
@@ -50,7 +51,10 @@ function MainMenu(props) {
     <DeletePost/>
     </Control.Popup>
 
-
+ {/* POSTING POPUP */}
+    <Control.Popup title="Blog posting..." setIsOpen="setBlogPosting" isOpen={POPUP.BLOG_POSTING}>
+    <Control.BlogCard author={{_id : 23231}} />
+    </Control.Popup>
 
 
 

@@ -8,7 +8,7 @@ class InputController extends Component {
 
   changeValue = (e) => {
     this.props.setValue(e.target.value);
-  console.log(this.props.value)
+  this.props.clearErrors()
     
    if(e.target.value.length > 5 ){
     this.props.searchUsername(this.props.reduxAction,e.target.value)
@@ -20,7 +20,7 @@ class InputController extends Component {
   render() {
    
     const error = this.props.value && this.props.errorMessage ? true : false;
-    const { name, label, variant, type, id, rows, multiline,inputProps,dynamic,dynamicError } = this.props;
+    const { name, label, variant, type, id, rows, multiline,inputProps,dynamicError,dynamicErrorText } = this.props;
     
     return (
       <>
@@ -35,8 +35,8 @@ class InputController extends Component {
           variant={variant || "outlined"}
           label={label || ""}
           type={type || "text"}
-          error={error ||dynamic }
-          helperText={dynamic?dynamicError:error ? this.props.errorMessage : ""}
+          error={error ||dynamicError }
+          helperText={dynamicError?dynamicErrorText:error ? this.props.errorMessage : ""}
           autoComplete="off"
 
 
@@ -56,6 +56,9 @@ const mapDispatchToProps = (dispatch)=>{
    }else{
     return false
    }
+    },
+    clearErrors : ()=>{
+      dispatch({type:"setGlobalError",payload : {error:false,error_status:""}})
     }
 
   }

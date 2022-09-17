@@ -6,7 +6,11 @@ const initialState = {
   UPLOAD_POP: false,
   DRAWER_POP: false,
   deletePost_pop :false,
-  deleteProps : ""
+  deleteProps : "",
+  BLOG_POSTING : false,
+  BLOG_POSTING_DETAILS : ''
+
+
 };
 export const allPopup = createReducer(initialState, {
   setRegisterPop: (state, action) => {
@@ -25,4 +29,10 @@ export const allPopup = createReducer(initialState, {
     state.deletePost_pop = action.payload.isOpen;
     state.deleteProps = action.payload.postId
   },
+  setBlogPosting : (state,action)=>{
+    state.BLOG_POSTING = action.payload.blog_posting
+    
+    state.BLOG_POSTING_DETAILS = action.payload.blog_details
+   console.log( action.payload)
+  }
 });

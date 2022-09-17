@@ -6,6 +6,7 @@ import Control from "../../ReuseComponents/Control";
 import { Grid } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useLoginForm } from "../../Hook/useLoginForm";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 function Login(props) {
   const classes = useStyles();
 
+  const errors = useSelector((state) => state.errorHandler);
   const { onValid, onInvalid, onValidSubmit, canSubmit } = useLoginForm();
 
   return (
@@ -34,7 +36,10 @@ function Login(props) {
             type="text"
             name="username"
             label="Username"
+            dynamicError={errors.ERROR}
+            
             required
+
           />
         </Grid>
 
@@ -44,6 +49,8 @@ function Login(props) {
             type="password"
             name="password"
             label="Password"
+            dynamicError={errors.ERROR}
+            dynamicErrorText={errors.ERROR_STATUS}
             required
           />{" "}
         </Grid>

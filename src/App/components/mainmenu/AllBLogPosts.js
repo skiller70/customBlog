@@ -1,28 +1,45 @@
 import React, { useEffect } from "react";
+
 import { useFetchBlog } from "../api/blogPostOperation";
 import Control from "../ReuseComponents/Control";
 
 function AllBLogPosts(props) {
-  const { data, fetchNextPage, hasNextPage, isFetching } = useFetchBlog();
+  const { data, fetchNextPage, hasNextPage, isFetching,  } =
+    useFetchBlog();
+
+  // const userProfile = useSelector((state) => state.userProfile);
+
+
+
+ 
 
   useEffect(() => {
+    let fetching = false;
+
     const handleScroll = async (e) => {
-      const innerHeight = window.innerHeight
-      const { scrollHeight, scrollTop } =
-        e.target.scrollingElement;
-        
-      if (scrollHeight - scrollTop <= innerHeight ) {
-        fetchNextPage();
+      const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement;
+      console.log("window event ");
+      if (!fetching && scrollHeight - scrollTop < clientHeight * 1.1) {
+        fetching = true;
+        await fetchNextPage();
+  
+        fetching = false;
       }
     };
+
+
+
+
+
     document.addEventListener("scroll", handleScroll);
     return () => {
       document.removeEventListener("scroll", handleScroll);
     };
-  }, [hasNextPage, fetchNextPage]);
+  }, [data,fetchNextPage]);
 
   return (
     <>
+      {console.log("allblog post render")}
       {data ? (
         data.pages.map((pageItem, pageIndex) => {
           return (
@@ -43,14 +60,13 @@ function AllBLogPosts(props) {
           );
         })
       ) : (
-        <div>
-          {" "}
+        <>
           <Control.BlogCard loading={true} />
           <br></br>
           <Control.BlogCard loading={true} />
           <br></br>
           <Control.BlogCard loading={true} />
-        </div>  
+        </>
       )}
       {hasNextPage && isFetching ? (
         <div>
