@@ -19,7 +19,7 @@ function AllBLogPosts(props) {
     const handleScroll = async (e) => {
       const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement;
       console.log("window event ");
-      if (!fetching && scrollHeight - scrollTop < clientHeight * 1.1) {
+      if (!fetching && scrollHeight - scrollTop < clientHeight * 1.5) {
         fetching = true;
         await fetchNextPage();
   
