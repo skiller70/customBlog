@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-
+import LoadingSpinner from "../ReuseComponents/LoadingSpinner";
 import { useFetchBlog } from "../api/blogPostOperation";
 import Control from "../ReuseComponents/Control";
 
+
 function AllBLogPosts(props) {
-  const { data, fetchNextPage, hasNextPage, isFetching,  } =
+  const { data, fetchNextPage  } =
     useFetchBlog();
 
   // const userProfile = useSelector((state) => state.userProfile);
@@ -39,7 +40,8 @@ function AllBLogPosts(props) {
 
   return (
     <>
-      {console.log("allblog post render")}
+   
+      
       {data ? (
         data.pages.map((pageItem, pageIndex) => {
           return (
@@ -59,24 +61,11 @@ function AllBLogPosts(props) {
             </div>
           );
         })
-      ) : (
-        <>
-          <Control.BlogCard loading={true} />
-          <br></br>
-          <Control.BlogCard loading={true} />
-          <br></br>
-          <Control.BlogCard loading={true} />
-        </>
-      )}
-      {hasNextPage && isFetching ? (
-        <div>
-          <Control.BlogCard loading={true} />
-          <br></br>
-          <Control.BlogCard loading={true} />
-          <br></br>
-          <Control.BlogCard loading={true} />
-        </div>
-      ) : null}
+      ) :null}
+       <div style={{marginLeft : "50%"}}>
+      {< LoadingSpinner /> }
+      </div>
+     
     </>
   );
 }

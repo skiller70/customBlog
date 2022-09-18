@@ -101,7 +101,7 @@ function BlogCard(props) {
       {loading ? (
         <Skeleton
           sx={{ height: 194 }}
-          width={800}
+         
           animation="wave"
           variant="rectangular"
         />

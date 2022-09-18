@@ -35,9 +35,8 @@ function MainMenu(props) {
   const classes = useStyles();
 
   return (
-    <Grid container>
-      
-    {/* {console.log("main menu render")} */}
+    <>
+     {/* {console.log("main menu render")} */}
 
       {/* UPLOAD POPUP */}
       <Control.Popup isOpen={POPUP.UPLOAD_POP} setIsOpen="setUploadPop" title="Create Blog" >
@@ -57,10 +56,14 @@ function MainMenu(props) {
     </Control.Popup>
 
 
+   
+    <Grid container>
+      
+   
 
 
       <Grid sm={0} md={2} item></Grid>
-      <Grid sm={12} md={7} item>
+      <Grid sm={11} md={7} item>
         {/* UPLOAD BUTTON */}
         <Box
           sx={(theme) => ({
@@ -100,7 +103,7 @@ function MainMenu(props) {
 
       <Grid sm={0} md={3} item></Grid>
     </Grid>
-   
+    </>
   );
 }
 
