@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import LoadingSpinner from "../ReuseComponents/LoadingSpinner";
 import { useFetchBlog } from "../api/blogPostOperation";
 import Control from "../ReuseComponents/Control";
-
+import Backdrop from '@mui/material/Backdrop';
 
 function AllBLogPosts(props) {
-  const { data, fetchNextPage  } =
+  const { data, fetchNextPage,isFetching ,isLoading } =
     useFetchBlog();
 
   // const userProfile = useSelector((state) => state.userProfile);
@@ -62,10 +62,11 @@ function AllBLogPosts(props) {
           );
         })
       ) :null}
+      
        <div style={{marginLeft : "50%"}}>
-      {< LoadingSpinner /> }
+      {data&&isFetching?< LoadingSpinner />:null }
       </div>
-     
+      {isLoading?<Backdrop sx={{color:"#fafafa", backgroundColor:"fafafa"}} open={true}><LoadingSpinner/></Backdrop>:null}
     </>
   );
 }
