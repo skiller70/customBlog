@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { colors, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -17,7 +17,8 @@ const customTheme = createTheme({
       default: "#E8EAF6",
     },
     secondary: {
-      main: colors.red[500],
+      main: "#f50057",
+      
     },
     dark: {
       main: "#E8EAF6",
@@ -47,9 +48,9 @@ function App() {
             <Navbar />
           </Paper>
 
-          <Paper elevation={0} sx={{ marginTop: 10, height: "100%" }}>
-            <MainMenu />
-          </Paper>
+
+          <MainMenu />
+         
      
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

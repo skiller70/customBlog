@@ -22,7 +22,7 @@ export function usePostBlogs(props) {
       data.forEach((item, key) => {
         objData[key] = item;
       });
-      dispatch({ type: "AFTER_POST" });
+      
       dispatch({
         type: "setBlogPosting",
         payload: {
@@ -48,10 +48,11 @@ export function usePostBlogs(props) {
           },
         },
       });
+      dispatch({ type: "AFTER_POST",payload : false });
       
     },
     onError: (error, data, context) => {
-      console.log("something went wrong")
+      dispatch({ type: "AFTER_POST",payload : true});
     },
   });
 }
@@ -112,10 +113,15 @@ export function useDeletePost() {
   };
 
   const { isError, isLoading, mutate } = useMutation(deleteBlog, {
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries("blog-posts");
       dispatch({ type: "setConfirmDelete", payload: { isOpen: false } });
+      dispatch({type:"AFTER_DELETE_POST",payload : false})
     },
+    onError:()=>{
+   
+      dispatch({type:"AFTER_DELETE_POST",payload : true})
+    }
   });
 
   return {

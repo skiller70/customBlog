@@ -7,7 +7,9 @@ import  {connect}  from "react-redux";
 class InputController extends Component {
 
   changeValue = (e) => {
-    this.props.setValue(e.target.value);
+  const removeSpace = e.target.value.replace(/\s/g, '')
+  console.log(removeSpace)
+    this.props.setValue(removeSpace);
   this.props.clearErrors()
     
    if(e.target.value.length > 5 ){

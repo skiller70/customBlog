@@ -1,4 +1,4 @@
-import { Grid,  } from "@mui/material";
+import { Alert, Grid, Paper, Snackbar  } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Control from "../ReuseComponents/Control";
 import AddIcon from "@mui/icons-material/Add";
@@ -25,17 +25,60 @@ const useStyles = makeStyles((theme) => ({
 //*****************************************************************************
 
 function MainMenu(props) {
-
+  const classes = useStyles();
 
 
 
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.userProfile.PROFILE);
   const POPUP = useSelector((state) => state.popup);
-  const classes = useStyles();
+  const ERRORS = useSelector((state) => state.errorHandler);
+
+  // if(ERRORS.TOAST_OPEN){
+  //   return setTimeout(()=>{
+  //     dispatch({ type: "setToastError", payload: { error_status: "",toast_msg : "",toast_open:false } })
+  //   },3000)
+  // }
+ 
+  
 
   return (
     <>
+     <Paper elevation={0} sx={{ marginTop: 10, height: "100%" }}>
+     <Box
+          sx={(theme) => ({
+            position: "fixed",
+
+            marginLeft:"70%" ,
+            top: "75%",
+            zIndex: 1,
+          })}
+        >
+          <Fab color='secondary'
+            onClick={() => {
+              if (profile.id) {
+                dispatch({ type: "setUploadPop",payload : {isOpen : true}});
+              } else {
+                dispatch({ type: "setLoginPop", payload :{isOpen : true}});
+              }
+            }}
+            className={classes.addButton}
+            
+            aria-label="add"
+          >
+            <AddIcon />
+          </Fab>
+        </Box>
+
+        <Snackbar autoHideDuration={3000} sx={{marginTop:"4%"}} anchorOrigin={{ vertical: "top",horizontal: "right"}} open={ERRORS.TOAST_OPEN}>
+      <Alert severity={ERRORS.TOAST_ERROR || "success"} sx={{ width: '100%' }}> {ERRORS.TOAST_MESSAGE}</Alert>
+      </Snackbar>
+
+
+
+
+
+      
      {/* {console.log("main menu render")} */}
 
       {/* UPLOAD POPUP */}
@@ -55,8 +98,10 @@ function MainMenu(props) {
     <Control.BlogCard author={{_id : 23231}} />
     </Control.Popup>
 
+    {/* TOAST MSG */}
 
-   
+  
+
     <Grid container>
       
    
@@ -65,34 +110,10 @@ function MainMenu(props) {
       <Grid sm={0} md={2} item></Grid>
       <Grid sm={11} md={7} item>
         {/* UPLOAD BUTTON */}
-        <Box
-          sx={(theme) => ({
-            position: "fixed",
-
-            paddingLeft: 1,
-            top: 480,
-            zIndex: 1,
-          })}
-        >
-          <Fab
-            onClick={() => {
-              if (profile.id) {
-                dispatch({ type: "setUploadPop",payload : {isOpen : true}});
-              } else {
-                dispatch({ type: "setLoginPop", payload :{isOpen : true}});
-              }
-            }}
-            className={classes.addButton}
-            color="primary"
-            aria-label="add"
-          >
-            <AddIcon />
-          </Fab>
-        </Box>
-        {/* BLOGS CARDS        */}
-        <AllBLogPosts/>
-
        
+        {/* BLOGS CARDS        */}
+        <AllBLogPosts/> 
+
 
 
       </Grid>
@@ -103,6 +124,7 @@ function MainMenu(props) {
 
       <Grid sm={0} md={3} item></Grid>
     </Grid>
+    </Paper>
     </>
   );
 }

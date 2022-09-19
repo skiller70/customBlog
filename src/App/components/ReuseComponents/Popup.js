@@ -22,13 +22,13 @@ function Popup(props) {
         <DialogTitle>
      
             <Grid container>  
-              <Grid  xs={9} sm={10} md={11} item> 
+              <Grid  xs={9} sm={10} md={10} item> 
                 <Typography variant="h5" component="div">
                   {title}
                 </Typography>
               </Grid>
               
-              <Grid md={1} sm={2} xs={3} item>
+              <Grid md={2} sm={2} xs={3} item>
                 <Control.Button
                   onClick={() => {
                     dispatch({type:setIsOpen,payload : {isOpen : false}});

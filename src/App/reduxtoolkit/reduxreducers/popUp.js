@@ -33,6 +33,6 @@ export const allPopup = createReducer(initialState, {
     state.BLOG_POSTING = action.payload.blog_posting
     
     state.BLOG_POSTING_DETAILS = action.payload.blog_details
-   console.log( action.payload)
+   
   }
 });

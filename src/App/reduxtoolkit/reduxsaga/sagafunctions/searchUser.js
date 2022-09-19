@@ -12,6 +12,7 @@ export function* search_username(action) {
 
     yield put({ type: "searchUsername", payload: result.data });
     yield put({ type: "searchLoading", payload: false });
+    
   } catch (error) {
     yield put({ type: "searchLoading", payload: false });
   }
