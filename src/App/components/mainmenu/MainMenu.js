@@ -79,7 +79,7 @@ function MainMenu(props) {
 
 
       
-     {/* {console.log("main menu render")} */}
+
 
       {/* UPLOAD POPUP */}
       <Control.Popup isOpen={POPUP.UPLOAD_POP} setIsOpen="setUploadPop" title="Create Blog" >

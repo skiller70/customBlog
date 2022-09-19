@@ -1,7 +1,7 @@
 import { put, delay } from "redux-saga/effects";
 
 export function* after_delete_post(action) {
-    yield console.log(action.payload)
+   
   try {
     if (action.payload) {
         yield put({

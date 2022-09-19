@@ -10,7 +10,7 @@ function DeletePost(props) {
   const { mutate, isLoading } = useDeletePost();
 
   const postId = useSelector((state) => state.popup.deleteProps);
-  console.log(postId);
+
   return (
     <>
       {isLoading ? (

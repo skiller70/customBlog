@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import LoadingSpinner from "../ReuseComponents/LoadingSpinner";
 import { useFetchBlog } from "../api/blogPostOperation";
 import Control from "../ReuseComponents/Control";
+import { Backdrop } from "@mui/material";
 
 
 function AllBLogPosts(props) {
-  const { data, fetchNextPage,isFetching  } =
+  const { data, fetchNextPage,isFetching,isLoading  } =
     useFetchBlog();
 
   // const userProfile = useSelector((state) => state.userProfile);
@@ -19,7 +20,7 @@ function AllBLogPosts(props) {
 
     const handleScroll = async (e) => {
       const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement;
-      console.log("window event ");
+    
       if (!fetching && scrollHeight - scrollTop < clientHeight * 1.5) {
         fetching = true;
         await fetchNextPage();
@@ -62,11 +63,11 @@ function AllBLogPosts(props) {
           );
         })
       ) :null}
-      
+    
        <div style={{marginLeft : "45%"}}>
-      {isFetching?< LoadingSpinner />:null }
+      {data&&isFetching?< LoadingSpinner />:null }
       </div>
-      {/* {isLoading?<Backdrop sx={{color:"#fafafa", backgroundColor:"fafafa"}} open={true}><LoadingSpinner/></Backdrop>:null} */}
+      {isLoading?<Backdrop sx={{color:"#fafafa", backgroundColor:"fafafa"}} open={true}><LoadingSpinner/></Backdrop>:null}
     </>
   );
 }

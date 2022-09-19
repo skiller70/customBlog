@@ -21,7 +21,7 @@ const initialToken = yield localStorage.getItem("token")
   
 } catch (error) {
   
- if(error)console.log("failed to login")
+
 }
  
 

@@ -8,7 +8,7 @@ class InputController extends Component {
 
   changeValue = (e) => {
   const removeSpace = e.target.value.replace(/\s/g, '')
-  console.log(removeSpace)
+  
     this.props.setValue(removeSpace);
   this.props.clearErrors()
     
