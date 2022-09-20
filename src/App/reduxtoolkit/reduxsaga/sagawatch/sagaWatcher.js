@@ -17,6 +17,7 @@ function* sagaWatcher(){
    yield takeLatest("AFTER_POST",after_post_blog)
    yield takeLatest("SEARCH_USERNAME",search_username)
    yield takeLatest("AFTER_DELETE_POST",after_delete_post)
+
 }
 
 export default sagaWatcher;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Typography, Avatar, IconButton, Collapse, } from "@mui/material";
+import React, {  useState } from "react";
+import { Typography, Avatar, IconButton, Collapse } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -13,9 +13,9 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Skeleton from "@mui/material/Skeleton";
 import { useDispatch, useSelector } from "react-redux";
-
-
-
+import { useLikePost } from "../api/blogPostOperation";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import moment from "moment"
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -35,19 +35,20 @@ const useStyles = makeStyles((theme) => ({
 
 function BlogCard(props) {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = useState();
- 
+  const { mutate,  } = useLikePost();
   const PROFILE = useSelector((state) => state.userProfile.PROFILE);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const { img, loading, author,postId } = props;
+  
+  const { img, loading, author, postId, like,date,username } = props;
+
+  const alreadyLike = like.find((item) => item.includes(PROFILE.id));
 
   return (
-
-   
     <Card className={classes.root}>
       <CardHeader
         avatar={
@@ -67,7 +68,14 @@ function BlogCard(props) {
         action={
           loading ? null : author._id === PROFILE.id ? (
             <div>
-              <IconButton onClick={()=>{dispatch({type:"setConfirmDelete",payload:{isOpen : true,postId}})}}>
+              <IconButton
+                onClick={() => {
+                  dispatch({
+                    type: "setConfirmDelete",
+                    payload: { isOpen: true, postId },
+                  });
+                }}
+              >
                 <DeleteIcon />
               </IconButton>
 
@@ -86,32 +94,34 @@ function BlogCard(props) {
               style={{ marginBottom: 6 }}
             />
           ) : (
-            "Shrimp and Chorizo Paella"
+            username
           )
         }
         subheader={
           loading ? (
             <Skeleton animation="wave" height={10} width="40%" />
           ) : (
-            "September 14, 2016"
+            moment(date).fromNow()
           )
         }
       />
 
       {loading ? (
+        <Skeleton sx={{ height: 194 }} animation="wave" variant="rectangular" />
+      ) : img === undefined ? (
         <Skeleton
           sx={{ height: 194 }}
-         
+          width={1100}
           animation="wave"
           variant="rectangular"
         />
-      ) :img === undefined ? <Skeleton
-      sx={{ height: 194 }}
-      width={1100}
-      animation="wave"
-      variant="rectangular"
-    />:(
+      ) : (
         <CardMedia
+        onDoubleClick={
+          ()=>{
+            console.log("double clicked")
+          }
+        }
           width="100%"
           component="img"
           height="194"
@@ -136,10 +146,38 @@ function BlogCard(props) {
       )}
 
       <CardActions disableSpacing>
-        <IconButton sx={{ marginLeft: "15px" }} aria-label="add to favorites">
-          <FavoriteBorderOutlinedIcon />
-        </IconButton>
-        1
+        {alreadyLike !== undefined ? (
+          <IconButton
+            onClick={() => {
+              if (PROFILE.id ) {
+                mutate({ postId, author:PROFILE.id, remove: "true" });
+              } else {
+                dispatch({ type: "setLoginPop", payload: { isOpen: true } });
+              }
+            }}
+            sx={{ marginLeft: "15px" }}
+            aria-label="add to favorites"
+          >
+            
+            {PROFILE.id?<FavoriteIcon color="secondary" />:<FavoriteBorderOutlinedIcon />}
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={() => {
+              if (PROFILE.id) {
+                mutate({ postId, author:PROFILE.id, remove: "false" });
+              } else {
+                dispatch({ type: "setLoginPop", payload: { isOpen: true } });
+              }
+            }}
+            sx={{ marginLeft: "15px" }}
+            aria-label="add to favorites"
+          >
+            {PROFILE.id?<FavoriteBorderOutlinedIcon />:<FavoriteBorderOutlinedIcon />}
+            
+          </IconButton>
+        )}
+        {like.length}
         <IconButton>
           <ModeCommentOutlinedIcon />
         </IconButton>

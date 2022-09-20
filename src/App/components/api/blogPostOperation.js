@@ -22,7 +22,7 @@ export function usePostBlogs(props) {
       data.forEach((item, key) => {
         objData[key] = item;
       });
-      
+
       dispatch({
         type: "setBlogPosting",
         payload: {
@@ -48,11 +48,10 @@ export function usePostBlogs(props) {
           },
         },
       });
-      dispatch({ type: "AFTER_POST",payload : false });
-      
+      dispatch({ type: "AFTER_POST", payload: false });
     },
     onError: (error, data, context) => {
-      dispatch({ type: "AFTER_POST",payload : true});
+      dispatch({ type: "AFTER_POST", payload: true });
     },
   });
 }
@@ -100,6 +99,84 @@ export function useFetchBlog(props) {
   };
 }
 
+//************************************************like Post***************************************
+
+export const useLikePost = () => {
+  const queryClient = useQueryClient();
+  const postLike = async (data) => {
+    axios.get(
+      `${MAIN_END_POINT}/postLike?postId=${data.postId}&author=${data.author}&remove=${data.remove}`
+    );
+  };
+
+  const { data, isLoading, mutate } = useMutation(postLike, {
+    onMutate: (BlogData) => { 
+      const previousData = queryClient.getQueryData("blog-posts");
+      if (BlogData.remove === "true") {
+        queryClient.cancelQueries("blog-posts");
+        
+
+        queryClient.setQueriesData("blog-posts", (oldData) => {
+          const pages = oldData.pages.map((pageItem, index) => {
+            const data = pageItem.data.filter((filterItem) => {
+              if (filterItem._id === BlogData.postId) {
+                return filterItem.likes.pop(BlogData.author);
+              } else {
+                return filterItem;
+              }
+            });
+            return { data, pageParam: pageItem.pageParam };
+          });
+
+          return {
+            pages,
+            pageParams: oldData.pageParams,
+          };
+        });
+      } else {
+        queryClient.cancelQueries("blog-posts");
+      
+
+        queryClient.setQueriesData("blog-posts", (oldData) => {
+          const pages = oldData.pages.map((pageItem, index) => {
+            const data = pageItem.data.filter((filterItem) => {
+              if (filterItem._id === BlogData.postId) {
+                return filterItem.likes.push(BlogData.authorc);
+              } else {
+                return filterItem;
+              }
+            });
+            return { data, pageParam: pageItem.pageParam };
+          });
+
+          return {
+          pages,
+            pageParams: oldData.pageParams,
+          };
+        });
+      }
+
+
+      return{
+        previousData
+      }
+    },
+    onError : (_error,_data,context)=>{
+      queryClient.setQueriesData("blog-posts",context.previousData)
+
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("blog-posts");
+    },
+  });
+
+  return {
+    data,
+    isLoading,
+    mutate,
+  };
+};
+
 //************************************************ DELETE BLOG POST***************************************
 
 export function useDeletePost() {
@@ -116,12 +193,11 @@ export function useDeletePost() {
     onSuccess: () => {
       queryClient.invalidateQueries("blog-posts");
       dispatch({ type: "setConfirmDelete", payload: { isOpen: false } });
-      dispatch({type:"AFTER_DELETE_POST",payload : false})
+      dispatch({ type: "AFTER_DELETE_POST", payload: false });
     },
-    onError:()=>{
-   
-      dispatch({type:"AFTER_DELETE_POST",payload : true})
-    }
+    onError: () => {
+      dispatch({ type: "AFTER_DELETE_POST", payload: true });
+    },
   });
 
   return {

@@ -5,6 +5,7 @@ import Control from "../ReuseComponents/Control";
 import { Backdrop } from "@mui/material";
 
 
+
 function AllBLogPosts(props) {
   const { data, fetchNextPage,isFetching,isLoading  } =
     useFetchBlog();
@@ -48,12 +49,17 @@ function AllBLogPosts(props) {
           return (
             <div key={pageIndex}>
               {pageItem.data.map((item, index) => {
+                
                 return (
                   <div key={index}>
                     <Control.BlogCard
                       img={item.image}
                       author={item.author}
                       postId={item._id}
+                      like={item.likes}
+                      date={item.date}
+                      username={item.author.username}
+
                     />
                     <br /> <br />{" "}
                   </div>
@@ -63,7 +69,7 @@ function AllBLogPosts(props) {
           );
         })
       ) :null}
-    
+     
        <div style={{marginLeft : "45%"}}>
       {data&&isFetching?< LoadingSpinner />:null }
       </div>
