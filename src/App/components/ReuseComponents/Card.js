@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Typography, Avatar, IconButton, Collapse } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import Card from "@mui/material/Card";
@@ -15,7 +15,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { useLikePost } from "../api/blogPostOperation";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import moment from "moment"
+import moment from "moment";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -37,14 +37,13 @@ function BlogCard(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [expanded, setExpanded] = useState();
-  const { mutate,  } = useLikePost();
+  const { mutate } = useLikePost();
   const PROFILE = useSelector((state) => state.userProfile.PROFILE);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  
-  const { img, loading, author, postId, like,date,username } = props;
+  const { img, loading, author, postId, like, date, username } = props;
 
   const alreadyLike = like.find((item) => item.includes(PROFILE.id));
 
@@ -117,11 +116,9 @@ function BlogCard(props) {
         />
       ) : (
         <CardMedia
-        onDoubleClick={
-          ()=>{
-            console.log("double clicked")
-          }
-        }
+          onDoubleClick={() => {
+            console.log("double clicked");
+          }}
           width="100%"
           component="img"
           height="194"
@@ -149,8 +146,8 @@ function BlogCard(props) {
         {alreadyLike !== undefined ? (
           <IconButton
             onClick={() => {
-              if (PROFILE.id ) {
-                mutate({ postId, author:PROFILE.id, remove: "true" });
+              if (PROFILE.id) {
+                mutate({ postId, author: PROFILE.id, remove: "true" });
               } else {
                 dispatch({ type: "setLoginPop", payload: { isOpen: true } });
               }
@@ -158,14 +155,17 @@ function BlogCard(props) {
             sx={{ marginLeft: "15px" }}
             aria-label="add to favorites"
           >
-            
-            {PROFILE.id?<FavoriteIcon color="secondary" />:<FavoriteBorderOutlinedIcon />}
+            {PROFILE.id ? (
+              <FavoriteIcon color="secondary" />
+            ) : (
+              <FavoriteBorderOutlinedIcon />
+            )}
           </IconButton>
         ) : (
           <IconButton
             onClick={() => {
               if (PROFILE.id) {
-                mutate({ postId, author:PROFILE.id, remove: "false" });
+                mutate({ postId, author: PROFILE.id, remove: "false" });
               } else {
                 dispatch({ type: "setLoginPop", payload: { isOpen: true } });
               }
@@ -173,8 +173,11 @@ function BlogCard(props) {
             sx={{ marginLeft: "15px" }}
             aria-label="add to favorites"
           >
-            {PROFILE.id?<FavoriteBorderOutlinedIcon />:<FavoriteBorderOutlinedIcon />}
-            
+            {PROFILE.id ? (
+              <FavoriteBorderOutlinedIcon />
+            ) : (
+              <FavoriteBorderOutlinedIcon />
+            )}
           </IconButton>
         )}
         {like.length}

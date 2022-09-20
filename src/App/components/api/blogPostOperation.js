@@ -141,7 +141,7 @@ export const useLikePost = () => {
           const pages = oldData.pages.map((pageItem, index) => {
             const data = pageItem.data.filter((filterItem) => {
               if (filterItem._id === BlogData.postId) {
-                return filterItem.likes.push(BlogData.authorc);
+                return filterItem.likes.push(BlogData.author);
               } else {
                 return filterItem;
               }
