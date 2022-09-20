@@ -83,7 +83,7 @@ function Navbar(props) {
       <AppBar position="fixed" elevation={2}>
         <Toolbar className={classes.root}>
           <Grid alignItems="center" justifyContent="center" container>
-            <Grid sx={{ display: { xs: "block", md: "none" } }} item>
+            <Grid xs={2} sx={{ display: { xs: "block", md: "none" } }} item>
               <Control.IconButton
                 onClick={() => {
                   dispatch({ type: "setDrawerPop", payload: { isOpen: true } });
@@ -93,7 +93,7 @@ function Navbar(props) {
               </Control.IconButton>
             </Grid>
             <Grid item sm></Grid>
-            <Grid item md={5}>
+            <Grid item md={5} xs={10}>
 
 
 
