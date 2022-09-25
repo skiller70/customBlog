@@ -15,7 +15,6 @@ import Skeleton from "@mui/material/Skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { useLikePost } from "../api/blogPostOperation";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Comments from "./Comments";
 import moment from "moment";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
