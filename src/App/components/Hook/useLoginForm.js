@@ -6,7 +6,7 @@ export const useLoginForm = (initialFValue) => {
   const dispatch = useDispatch()
   const [canSubmit, setCanSubmit] = useState(false);
 
-  console.log(canSubmit)
+  
   const onValid = () => {
     setCanSubmit(true);
   };

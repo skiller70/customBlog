@@ -22,17 +22,18 @@ class InputController extends Component {
   render() {
    
     const error = this.props.value && this.props.errorMessage ? true : false;
-    const { name, label, variant, type, id, rows, multiline,inputProps,dynamicError,dynamicErrorText } = this.props;
+    const { name, label, variant, type, id, rows, multiline,inputProps,dynamicError,dynamicErrorText,value } = this.props;
     
     return (
       <>
         <TextField
+         
           id={id || ""}
           InputProps={{endAdornment:error?null:this.props.value === ""?null :inputProps}}
           multiline={false || multiline}
           rows={0 || rows}
           onChange={this.changeValue}
-          value={this.props.value || ""}
+          defaultValue={this.props.value || value || ""}
           name={name}
           variant={variant || "outlined"}
           label={label || ""}

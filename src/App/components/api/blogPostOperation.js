@@ -1,7 +1,12 @@
 import { MAIN_END_POINT } from "./ApiEndpoint";
 import axios from "axios";
-import { useMutation, useQueryClient, useInfiniteQuery } from "react-query";
-import { useDispatch } from "react-redux";
+import {
+  useMutation,
+  useQueryClient,
+  useInfiniteQuery,
+ 
+} from "react-query";
+import { useDispatch, useSelector } from "react-redux";
 
 //************************************************ POST BLOG POST***************************************
 export function usePostBlogs(props) {
@@ -40,11 +45,14 @@ export function usePostBlogs(props) {
       dispatch({
         type: "setBlogPosting",
         payload: {
-          blog_posting: true,
+          blog_posting: false,
+          blog_post_loading: false,
           blog_details: {
             content: data.content,
             subject: data.subject,
             title: data.title,
+            image: data.image,
+            date: data.date,
           },
         },
       });
@@ -104,17 +112,16 @@ export function useFetchBlog(props) {
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   const postLike = async (data) => {
-    axios.get(
+    await axios.get(
       `${MAIN_END_POINT}/postLike?postId=${data.postId}&author=${data.author}&remove=${data.remove}`
     );
   };
 
   const { data, isLoading, mutate } = useMutation(postLike, {
-    onMutate: (BlogData) => { 
+    onMutate: (BlogData) => {
       const previousData = queryClient.getQueryData("blog-posts");
       if (BlogData.remove === "true") {
         queryClient.cancelQueries("blog-posts");
-        
 
         queryClient.setQueriesData("blog-posts", (oldData) => {
           const pages = oldData.pages.map((pageItem, index) => {
@@ -135,7 +142,6 @@ export const useLikePost = () => {
         });
       } else {
         queryClient.cancelQueries("blog-posts");
-      
 
         queryClient.setQueriesData("blog-posts", (oldData) => {
           const pages = oldData.pages.map((pageItem, index) => {
@@ -150,20 +156,18 @@ export const useLikePost = () => {
           });
 
           return {
-          pages,
+            pages,
             pageParams: oldData.pageParams,
           };
         });
       }
 
-
-      return{
-        previousData
-      }
+      return {
+        previousData,
+      };
     },
-    onError : (_error,_data,context)=>{
-      queryClient.setQueriesData("blog-posts",context.previousData)
-
+    onError: (_error, _data, context) => {
+      queryClient.setQueriesData("blog-posts", context.previousData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries("blog-posts");
@@ -206,3 +210,103 @@ export function useDeletePost() {
     mutate,
   };
 }
+
+//************************************************ GET COMMENTS***************************************
+
+export const useGetComments = (pages) => {
+  const POPUP = useSelector((state) => state.popup);
+  const fetchComments = async (queryFunctionContext) => {
+    const pageParams = queryFunctionContext.pageParam
+      ? queryFunctionContext.pageParam
+      : 1;
+
+    const queryData = queryFunctionContext.queryKey;
+
+    const { data } = await axios.get(
+      `${MAIN_END_POINT}/getComment?postId=${queryData[1]}&pages=${pageParams}`
+    );
+
+    return data;
+  };
+
+  const { data, isLoading, isPreviousData, fetchNextPage } = useInfiniteQuery(
+    [`blog-comments`, POPUP.COMMENT_POST_ID],
+    fetchComments,
+    {
+      getNextPageParam: (lastPage, page) => {
+        if (page.length < POPUP.GET_COMMENTS_PAGES) {
+          return page.length + 1;
+        } else {
+          return undefined;
+        }
+      },
+    }
+  );
+
+  return {
+    data,
+    isLoading,
+    isPreviousData,
+    fetchNextPage,
+  };
+};
+//************************************************ POST COMMENTS***************************************
+
+export const usePostComments = () => {
+  const dispatch = useDispatch()
+  const queryClient = useQueryClient();
+  const postComment = async (commentData) => {
+   const { data } = await axios.post(`${MAIN_END_POINT}/comments`, commentData);
+   return data
+  };
+
+  const { mutate, isLoading } = useMutation(postComment, {
+    onMutate: (data) => {
+
+      dispatch({type:"setPostingComment",payload:{postingComment:true,postingCommentDetail:data}})
+
+    },
+    onSuccess : ()=>{
+      dispatch({type:"setPostingComment",payload:{postingComment:false,postingCommentDetail:{}}})
+      queryClient.invalidateQueries("blog-comments")
+
+    }
+  });
+
+  return {
+    mutate,
+    isLoading,
+  };
+};
+
+//************************************************ EDIT BLOG POST ***************************************
+
+export const useEditBlog = () => {
+  const dispatch = useDispatch()
+  const editBlog = async (updateData) => {
+  const {data} = await axios.put(`${MAIN_END_POINT}/updateBlog`, updateData);
+  return data
+  };
+
+  const { mutate } = useMutation(editBlog, {
+    onMutate: (data) => {
+      const objData = {};
+      data.forEach((item, key) => {
+        objData[key] = item;
+      });
+
+      dispatch({ type: "setUpdatingBlog",payload: { updatingBlog: true } });
+    },
+
+    onSettled: (data) => {
+     
+      dispatch({ type: "setUpdatingBlog",payload: { updatingBlog: false } });
+      dispatch({ type: "AFTER_UPDATE_POST", payload: false });
+    },
+    onError: () => {
+      dispatch({ type: "AFTER_UPDATE_POST", payload: true });
+    },
+  });
+
+  return { mutate };
+};

@@ -1,7 +1,8 @@
+import axios from "axios";
 import { useQuery } from "react-query";
 
 import { END_POINT } from "./ApiEndpoint";
-
+import { MAIN_END_POINT } from "./ApiEndpoint";
 // export function useFetch(props) {
 //   const fetchOwner = async (queryFunctionContext) => {
 //     const queryKey = queryFunctionContext.queryKey;
@@ -24,7 +25,7 @@ export function useBlogs(props) {
   const fetchBlog = async (queryFunctionContext) => {
     const queryKey = queryFunctionContext.queryKey;
 
-    const { data } = await END_POINT.get(`/read?_limit=3&page=${queryKey[1]}`);
+    const { data } = await axios.get(`${MAIN_END_POINT}/read?_limit=3&page=${queryKey[1]}`);
 
     return data;
   };

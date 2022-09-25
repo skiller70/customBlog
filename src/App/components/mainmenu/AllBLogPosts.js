@@ -49,17 +49,20 @@ function AllBLogPosts(props) {
           return (
             <div key={pageIndex}>
               {pageItem.data.map((item, index) => {
-                
+           
                 return (
                   <div key={index}>
                     <Control.BlogCard
-                      img={item.image}
-                      author={item.author}
-                      postId={item._id}
-                      like={item.likes}
-                      date={item.date}
-                      username={item.author.username}
-
+                      img={item.image || ""}
+                      author={item.author || ""}
+                      postId={item._id || ""}
+                      like={item.likes || []}
+                      date={item.date || ""}
+                      username={item.author.username || ""}
+                      comments={item.comments || []}
+                      content={item.content|| ""}
+                      subject={item.subject|| ""}
+                      title={item.title || "" }
                     />
                     <br /> <br />{" "}
                   </div>

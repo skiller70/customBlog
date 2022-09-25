@@ -18,23 +18,34 @@ function Popup(props) {
   return (
     <>
 
-      <Dialog maxWidth={maxWidth || "md"} open={isOpen}>
+      <Dialog   maxWidth={maxWidth || "md"} open={isOpen}>
         <DialogTitle>
      
             <Grid container>  
               <Grid  xs={9} sm={10} md={10} item> 
                 <Typography variant="h5" component="div">
                   {title}
-                </Typography>
+                </Typography> 
               </Grid>
               
               <Grid md={2} sm={2} xs={3} item>
                 <Control.Button
                   onClick={() => {
                     dispatch({type:setIsOpen,payload : {isOpen : false}});
-                    dispatch({type:"searchUsername",payload : null});
-                    dispatch({type:"setGlobalError",payload : {error : false,error_status : ""}});
-                
+
+                    if(setIsOpen === "searchUsername"){
+                      dispatch({type:"searchUsername",payload : null});
+                    }else if(setIsOpen === "setGlobalError"){
+                      dispatch({type:"setGlobalError",payload : {error : false,error_status : ""}});
+
+                    }else if(setIsOpen === "setEditBlog"){
+
+                      dispatch({type:"setEditBlog",payload : {title: "",subject:"",content:""}});
+                    }
+
+              
+                   
+                    
                   }}
                   variant={closeBtnVariant || "contained"}
                   color={closeBtnColor || "secondary"}

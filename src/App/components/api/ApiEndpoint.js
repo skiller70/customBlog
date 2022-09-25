@@ -1,8 +1,8 @@
 
 // export const END_POINT = axios.create({
-//     baseURL : "http://localhost:4000/blog"
+//     
 
-
+"http://localhost:4000/blog"
 // }) ; 
 
 export const MAIN_END_POINT = "https://luckyskiller.herokuapp.com/blog"

@@ -1,4 +1,4 @@
-import { Alert, Grid, Paper, Snackbar  } from "@mui/material";
+import { Alert, Grid, Paper, Snackbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Control from "../ReuseComponents/Control";
 import AddIcon from "@mui/icons-material/Add";
@@ -8,6 +8,9 @@ import CreateBlog from "../createblog/CreateBlog";
 import { useDispatch, useSelector } from "react-redux";
 import AllBLogPosts from "./AllBLogPosts";
 import DeletePost from "./DeletePost";
+import Comments from "../ReuseComponents/Comments";
+import { useBlogForm } from "../Hook/useBlogForm";
+import { useEditBlogForm } from "../Hook/useEditBlogForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,105 +30,124 @@ const useStyles = makeStyles((theme) => ({
 function MainMenu(props) {
   const classes = useStyles();
 
-
-
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.userProfile.PROFILE);
   const POPUP = useSelector((state) => state.popup);
+  const POSTING = useSelector((state) => state.popup);
   const ERRORS = useSelector((state) => state.errorHandler);
-
-  // if(ERRORS.TOAST_OPEN){
-  //   return setTimeout(()=>{
-  //     dispatch({ type: "setToastError", payload: { error_status: "",toast_msg : "",toast_open:false } })
-  //   },3000)
-  // }
- 
-  
 
   return (
     <>
-   
-     <Paper elevation={0} sx={{ marginTop: 10, height: "100%" }}>
-     <Box
+      <Paper elevation={0} sx={{ marginTop: 10, height: "100%" }}>
+        <Comments />
+
+        {/* CREATE_BLOG */}
+        <Control.Popup isOpen={POPUP.EDIT_BLOG_POP} title="Update Blog" setIsOpen="setEditBlog">
+          <CreateBlog hook={useEditBlogForm} />
+         </Control.Popup>
+
+  {/* UPDATING BLOG_BLOG */}
+         <Control.Popup isOpen={POPUP.UPDATING_BLOG} title="Updating..." setIsOpen="setUpdatingBlog" >
+          <Control.BlogCard  loading={true}/>
+         </Control.Popup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <Box
           sx={(theme) => ({
             position: "fixed",
 
-            marginLeft:"70%" ,
+            marginLeft: "70%",
             top: "75%",
             zIndex: 1,
           })}
         >
-          <Fab color='secondary'
+          <Fab
+            color="secondary"
             onClick={() => {
               if (profile.id) {
-                dispatch({ type: "setUploadPop",payload : {isOpen : true}});
+                dispatch({ type: "setUploadPop", payload: { isOpen: true } });
               } else {
-                dispatch({ type: "setLoginPop", payload :{isOpen : true}});
+                dispatch({ type: "setLoginPop", payload: { isOpen: true } });
               }
             }}
             className={classes.addButton}
-            
             aria-label="add"
           >
             <AddIcon />
           </Fab>
         </Box>
+        <Snackbar
+          open={ERRORS.TOAST_OPEN}
+          sx={{ marginTop: "4%" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
+          <Alert
+            severity={ERRORS.TOAST_ERROR || "success"}
+            sx={{ width: "100%" }}
+          >
+            {" "}
+            {ERRORS.TOAST_MESSAGE}
+          </Alert>
+        </Snackbar>
+        {/* UPLOAD POPUP */}
+        <Control.Popup
+          isOpen={POPUP.UPLOAD_POP}
+          setIsOpen="setUploadPop"
+          title="Create Blog"
+        >
+          <CreateBlog hook={useBlogForm} />
+        </Control.Popup>
+        {/* DELETE POPUP */}
+        <Control.Popup
+          title="Delete Post"
+          closeBtnColor="dark"
+          setIsOpen="setConfirmDelete"
+          isOpen={POPUP.deletePost_pop}
+        >
+          <DeletePost />
+        </Control.Popup>
+        {/* POSTING POPUP */}
+        <Control.Popup
+          title="Blog posting..."
+          setIsOpen="setBlogPosting"
+          isOpen={POPUP.BLOG_POSTING}
+        >
+          <Control.BlogCard
+          loading={POSTING.BLOG_POSTING}
+           img={POSTING.BLOG_POSTING_DETAILS.image || ""}
+            author={POSTING.BLOG_POSTING_DETAILS.author || ""}
+            date={POSTING.BLOG_POSTING_DETAILS.date || "posting"}
+            content={POSTING.BLOG_POSTING_DETAILS.content}
+            subject={POSTING.BLOG_POSTING_DETAILS.subject}
+            title={POSTING.BLOG_POSTING_DETAILS.title}
+          />
+        </Control.Popup>
+        {/* TOAST MSG */}
 
-        <Snackbar autoHideDuration={3000} sx={{marginTop:"4%"}} anchorOrigin={{ vertical: "top",horizontal: "right"}} open={ERRORS.TOAST_OPEN}>
-      <Alert severity={ERRORS.TOAST_ERROR || "success"} sx={{ width: '100%' }}> {ERRORS.TOAST_MESSAGE}</Alert>
-      </Snackbar>
+        <Grid container>
+          <Grid xs={0.5} md={2} item></Grid>
+          <Grid xs={11} md={7} item>
+            {/* UPLOAD BUTTON */}
 
+            {/* BLOGS CARDS        */}
+            <AllBLogPosts />
+          </Grid>
 
-
-
-
-      
-
-
-      {/* UPLOAD POPUP */}
-      <Control.Popup isOpen={POPUP.UPLOAD_POP} setIsOpen="setUploadPop" title="Create Blog" >
-      <CreateBlog/>
-      </Control.Popup>
-      
-    {/* DELETE POPUP */}
-
-
-    <Control.Popup title="Delete Post"  closeBtnColor="dark"  setIsOpen="setConfirmDelete" isOpen={POPUP.deletePost_pop}>
-    <DeletePost/>
-    </Control.Popup>
-
- {/* POSTING POPUP */}
-    <Control.Popup title="Blog posting..." setIsOpen="setBlogPosting" isOpen={POPUP.BLOG_POSTING}>
-    <Control.BlogCard author={{_id : 23231}} />
-    </Control.Popup>
-
-    {/* TOAST MSG */}
-
-  
-
-    <Grid container>
-      
-   
-
-
-      <Grid sm={0} md={2} item></Grid>
-      <Grid sm={11} md={7} item>
-        {/* UPLOAD BUTTON */}
-       
-        {/* BLOGS CARDS        */}
-        <AllBLogPosts/> 
-
-
-
-      </Grid>
-
-
-
-
-
-      <Grid sm={0} md={3} item></Grid>
-    </Grid>
-    </Paper>
+          <Grid xs={0} md={3} item></Grid>
+        </Grid>
+      </Paper>
     </>
   );
 }

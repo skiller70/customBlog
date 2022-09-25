@@ -5,9 +5,10 @@ import { makeStyles } from "@mui/styles";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useBlogForm } from "../Hook/useBlogForm";
+
 import { Stack } from "@mui/system";
 import InputImage from "../Form/InputImage";
+import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiFormControl-root": {
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
 function CreateBlog(props) {
   const classes = useStyles();
 
-  const { onValid, onInvalid, onValidSubmit, canSubmit } = useBlogForm();
+  const { onValid, onInvalid, onValidSubmit, canSubmit } = props.hook();
+  const POPUP = useSelector((state) => state.popup);
 
   return (
     <Formsy
@@ -31,14 +33,15 @@ function CreateBlog(props) {
       <Grid container>
         <Grid xs={12} md={10} item>
           {" "}
-          <InputController name="title" label="Tile" required></InputController>
+          <InputController  value={POPUP.EDIT_BLOG.title || ""} name="title" label="Title" required></InputController>
         </Grid>
         <Grid xs={12} md={10} item>
           {" "}
           <InputController
             name="subject"
-            label="Subject"
+            label="Category"
             required
+            value={POPUP.EDIT_BLOG.subject || ""}
           ></InputController> 
         </Grid>
         <Grid xs={12} md={10} item>
@@ -68,6 +71,7 @@ function CreateBlog(props) {
             variant="standard"
             name="content"
             label="Content"
+            value={POPUP.EDIT_BLOG.content || ""}
             required
           ></InputController>
         </Grid>
