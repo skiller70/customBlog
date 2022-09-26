@@ -149,13 +149,12 @@ const Comments = () => {
        
           {POPUP.GET_COMMENTS_PAGES <= pages ? null : ( 
             <Stack direction="row" justifyContent="center">
-              {isLoading ? (
+              { data && isLoading ? 
                 <LoadingSpinner />
-              ) : (
-                <Button onClick={nextPage} size="small" variant="contained">
+               :!data && isLoading ? null:<Button onClick={nextPage} size="small" variant="contained">
                   Load more
                 </Button>
-              )}
+              }
             </Stack>
           )}
         </DialogContent>
