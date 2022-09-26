@@ -49,7 +49,7 @@ function AllBLogPosts(props) {
           return (
             <div key={pageIndex}>
               {pageItem.data.map((item, index) => {
-           
+                console.log(item)
                 return (
                   <div key={index}>
                     <Control.BlogCard

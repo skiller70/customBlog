@@ -90,7 +90,7 @@ function Navbar(props) {
                   dispatch({ type: "setDrawerPop", payload: { isOpen: true } });
                 }}
               >
-                <MenuIcon color="primary" fontSize="large" />
+                <MenuIcon  sx={{color:"#64b5f6"}} fontSize="large" />
               </Control.IconButton>
             </Grid>
             <Grid item sm></Grid>

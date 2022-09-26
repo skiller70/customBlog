@@ -46,7 +46,7 @@ function BlogCard(props) {
   const { img, loading, author, postId, like, date, username,comments,title,subject,content } = props;
  
   const alreadyLike = like?like.find((item) => item.includes(PROFILE.id)):[]
-
+  const firstLatter = author.name?[...author.name]:["a"]
 
   return (
     <> 
@@ -62,8 +62,8 @@ function BlogCard(props) {
               height={40}
             />
           ) : (
-            <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
-              R
+            <Avatar sx={{ backgroundColor: "#42a5f5" }} aria-label="recipe">
+              {firstLatter[0].toUpperCase()}
             </Avatar>
           )
         }

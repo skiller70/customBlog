@@ -6,14 +6,15 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import { Avatar, IconButton, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import moment from "moment";
 const CommentCard = (props) => {
   const { comments, date, author } = props;
   const PROFILE = useSelector((state) => state.userProfile.PROFILE);
   const POP = useSelector((state) => state.popup);
-  console.log(POP);
+
   const isAuthor = PROFILE.id === author._id;
   const isBlogAuthor = POP.GET_COMMENTS_OF_BLOG_AUTHOR === PROFILE.id;
-  console.log(isAuthor);
+
   return (
     <>
       <Card sx={{ marginBottom: 1 }}>
@@ -37,12 +38,12 @@ const CommentCard = (props) => {
             ) : null
           }
           title={author.username}
-          subheader={date}
+          subheader={moment(date).fromNow()}
         ></CardHeader>
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {comments}
-          </Typography>
+        <Typography variant="body2" >
+       {comments}
+        </Typography> 
         </CardContent>
       </Card>
     </>

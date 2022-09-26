@@ -124,7 +124,7 @@ const Comments = () => {
 
           {data ? (
             data.pages.map((item, pageIndex) => {
-              console.log(item)
+      
               return (
                 <div key={pageIndex}>
                   {item.map((i, index) => {
