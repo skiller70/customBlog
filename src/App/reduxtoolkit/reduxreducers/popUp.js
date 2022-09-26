@@ -49,7 +49,10 @@ export const allPopup = createReducer(initialState, {
   },
   setEditBlog: (state, action) => {
     state.EDIT_BLOG_POP = action.payload.isOpen;
-   
+    state.EDIT_BLOG.title = action.payload.title;
+    state.EDIT_BLOG.subject = action.payload.subject;
+    state.EDIT_BLOG.content = action.payload.content;
+    state.EDIT_BLOG_ID = action.payload.postId;
   },
 
   setGetComments: (state, action) => {
