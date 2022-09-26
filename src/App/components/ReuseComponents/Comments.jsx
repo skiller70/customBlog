@@ -43,7 +43,7 @@ const Comments = () => {
   const { data, isLoading, fetchNextPage } = useGetComments();
   const { mutate} = usePostComments();
   const [userComment, setUserComment] = useState("");
-
+  const [inputError,setInputError] = useState(false)
   const nextPage = () => {
     setPages(pages + 1);
     dispatch({
@@ -57,15 +57,25 @@ const Comments = () => {
   };
 
   const postComment = () => {
-    const postData = {
-      idOfBlog: POPUP.COMMENT_POST_ID,
-      author: profile.id,
-      comment: userComment,
-    };
-
-    mutate(postData);
-
-    setUserComment("");
+    if(profile.id){
+      if(userComment){
+        const postData = {
+          idOfBlog: POPUP.COMMENT_POST_ID,
+          author: profile.id,
+          comment: userComment,
+        };
+    
+        mutate(postData);
+    
+        setUserComment("");
+      }else{
+        setInputError(true)
+      }
+     
+    }else{
+      dispatch({type:"setLoginPop",payload: {isOpen:true}})
+    }
+    
   };
 
   // useEffect(() => {
@@ -109,15 +119,16 @@ const Comments = () => {
 
           {data ? (
             data.pages.map((item, pageIndex) => {
+              console.log(item)
               return (
                 <div key={pageIndex}>
                   {item.map((i, index) => {
                     return (
                       <div key={index}>
                         <CommentCard
-                          author={i.author.username}
-                          date={i.date}
-                          comments={i.comment}
+                          author={i.author || ""}
+                          date={i.date || ""}
+                          comments={i.comment || ""}
                         />
                       </div>
                     );
@@ -150,7 +161,10 @@ const Comments = () => {
                 value={userComment}
                 onChange={(e) => {
                   setUserComment(e.target.value);
+                  setInputError(false)
                 }}
+                error={inputError}
+           
                 size="small"
                 sx={{ width: "100%", borderRadius: "0px" }}
               ></TextField>

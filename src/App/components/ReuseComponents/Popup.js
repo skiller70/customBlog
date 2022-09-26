@@ -22,6 +22,7 @@ function Popup(props) {
     maxWidth,
     closeBtnColor,
     closeBtnVariant,
+    sx
   } = props;
   return (
     <>
@@ -49,9 +50,19 @@ function Popup(props) {
                   } else if (setIsOpen === "setEditBlog") {
                     dispatch({
                       type: "setEditBlog",
-                      payload: { title: "", subject: "", content: "" },
+                      payload: {isOpen:false}
                     });
+                  }else if(setIsOpen === "setBlogPosting"){
+
+                    dispatch({
+                      type: "setBlogPosting",
+                      payload: {blog_posting:false}
+                    });
+
                   }
+
+                   
+                  
                 }}
                 variant={closeBtnVariant || "contained"}
                 color={closeBtnColor || "secondary"}
@@ -61,7 +72,7 @@ function Popup(props) {
           </Grid>
         </DialogTitle>
 
-        <DialogContent dividers>{children}</DialogContent>
+        <DialogContent sx={sx || {}} dividers>{children}</DialogContent>
 
         {LOADING ? (
           <Backdrop sx={{ color: "#fff" }} open={true}>

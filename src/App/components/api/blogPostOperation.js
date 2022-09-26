@@ -27,20 +27,22 @@ export function usePostBlogs(props) {
       data.forEach((item, key) => {
         objData[key] = item;
       });
-
+        
       dispatch({
         type: "setBlogPosting",
         payload: {
           blog_posting: true,
+          blog_post_loading: true,
           blog_details: {
-            content: objData.content,
-            subject: objData.subject,
-            title: objData.title,
+         
+            
+            
           },
         },
       });
     },
     onSettled: (data) => {
+      
       queryClient.invalidateQueries("blog-posts");
       dispatch({
         type: "setBlogPosting",
@@ -48,11 +50,7 @@ export function usePostBlogs(props) {
           blog_posting: false,
           blog_post_loading: false,
           blog_details: {
-            content: data.content,
-            subject: data.subject,
-            title: data.title,
-            image: data.image,
-            date: data.date,
+    
           },
         },
       });
@@ -269,6 +267,7 @@ export const usePostComments = () => {
     onSuccess : ()=>{
       dispatch({type:"setPostingComment",payload:{postingComment:false,postingCommentDetail:{}}})
       queryClient.invalidateQueries("blog-comments")
+      queryClient.invalidateQueries("blog-posts");
 
     }
   });
@@ -283,6 +282,7 @@ export const usePostComments = () => {
 
 export const useEditBlog = () => {
   const dispatch = useDispatch()
+  const queryClient = useQueryClient()
   const editBlog = async (updateData) => {
   const {data} = await axios.put(`${MAIN_END_POINT}/updateBlog`, updateData);
   return data
@@ -302,6 +302,7 @@ export const useEditBlog = () => {
      
       dispatch({ type: "setUpdatingBlog",payload: { updatingBlog: false } });
       dispatch({ type: "AFTER_UPDATE_POST", payload: false });
+      queryClient.invalidateQueries("blog-posts");
     },
     onError: () => {
       dispatch({ type: "AFTER_UPDATE_POST", payload: true });

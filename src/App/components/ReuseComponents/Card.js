@@ -114,7 +114,12 @@ function BlogCard(props) {
       />
 
       {loading ? (
-        <Skeleton sx={{ height: 194 }} animation="wave" variant="rectangular" />
+      <Skeleton
+      sx={{ height: 194 }}
+      width={1100}
+      animation="wave"
+      variant="rectangular"
+    />
       ) : img === undefined ? (
         <Skeleton
           sx={{ height: 194 }}
@@ -198,7 +203,7 @@ function BlogCard(props) {
    
 // // commentPage
 
-          dispatch({type:"setGetComments",payload : {isOpen : true ,postId,pages}})
+          dispatch({type:"setGetComments",payload : {isOpen : true ,postId,pages,author:author._id}})
 
         }}>
           <ModeCommentOutlinedIcon />

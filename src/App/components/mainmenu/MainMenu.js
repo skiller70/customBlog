@@ -12,6 +12,7 @@ import Comments from "../ReuseComponents/Comments";
 import { useBlogForm } from "../Hook/useBlogForm";
 import { useEditBlogForm } from "../Hook/useEditBlogForm";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -48,9 +49,11 @@ function MainMenu(props) {
 
   {/* UPDATING BLOG_BLOG */}
          <Control.Popup isOpen={POPUP.UPDATING_BLOG} title="Updating..." setIsOpen="setUpdatingBlog" >
-          <Control.BlogCard  loading={true}/>
+          <Control.BlogCard  like={[]} loading={true}/>
          </Control.Popup>
-
+  
+      
+          
 
 
 
@@ -119,20 +122,25 @@ function MainMenu(props) {
           <DeletePost />
         </Control.Popup>
         {/* POSTING POPUP */}
+        
+        
         <Control.Popup
           title="Blog posting..."
           setIsOpen="setBlogPosting"
-          isOpen={POPUP.BLOG_POSTING}
+           sx={{width : "100%"}}
+          isOpen={POPUP.BLOG_POSTING}    
+      
         >
           <Control.BlogCard
-          loading={POSTING.BLOG_POSTING}
-           img={POSTING.BLOG_POSTING_DETAILS.image || ""}
-            author={POSTING.BLOG_POSTING_DETAILS.author || ""}
-            date={POSTING.BLOG_POSTING_DETAILS.date || "posting"}
-            content={POSTING.BLOG_POSTING_DETAILS.content}
-            subject={POSTING.BLOG_POSTING_DETAILS.subject}
-            title={POSTING.BLOG_POSTING_DETAILS.title}
+          loading={POSTING.BLOG_POST_LOADING}
+         
+          author={{_id:"dummy"}}
+          like={[]}
+          
+           
+        
           />
+         
         </Control.Popup>
         {/* TOAST MSG */}
 
@@ -143,6 +151,7 @@ function MainMenu(props) {
 
             {/* BLOGS CARDS        */}
             <AllBLogPosts />
+           
           </Grid>
 
           <Grid xs={0} md={3} item></Grid>

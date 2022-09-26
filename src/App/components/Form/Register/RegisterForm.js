@@ -1,4 +1,4 @@
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
 import Formsy from "formsy-react";
 import InputController from "../InputController";
 import useErrors from "../../Hook/useErrors";
@@ -7,7 +7,7 @@ import { useForm } from "../../Hook/useRegisterForm";
 import { makeStyles } from "@mui/styles";
 import SearchUsername from "./SearchUsername";
 import DateOFBirth from "../DateOfBirth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 function RegisterForm(props) {
   const classes = useStyles();
+  const dispatch = useDispatch()
   const SEARCH_USERNAME = useSelector((state) => state.searchUser);
   const { commonMessage, passwordError, usernameError } = useErrors();
   const { onValid, onInvalid, onValidSubmit, canSubmit } = useForm();
@@ -33,6 +34,7 @@ function RegisterForm(props) {
       onValidSubmit={onValidSubmit}
       onInvalid={onInvalid}
     >
+   
      
       <Grid container>
         <Grid item xs={12} md={6}>
@@ -89,15 +91,31 @@ function RegisterForm(props) {
           />
         </Grid>
         <Grid item xs={4} md={5}></Grid>
-        <Grid item xs={8} md={3}>
+        <Grid item xs={8} md={4}>
           <Button
             type="submit"
             disabled={!canSubmit}
             sx={{ marginTop: "20px" }}
             variant="contained"
+           
           >
             Register
           </Button>
+         
+      <div>
+      <Typography  sx={{paddingLeft:"2.4%"}}variant="p">
+                 or
+            </Typography>
+            <Button onClick={()=>{
+                dispatch({type:"setLoginPop",payload : {isOpen : true}})
+                dispatch({type:"setRegisterPop",payload : {isOpen : false}})
+
+            }} size="large" sx={{marginLeft:"2px"}}>
+             LOGIN
+            </Button>
+      </div>
+         
+
         </Grid>
         <Grid item xs={0} md={4}></Grid>
       </Grid>

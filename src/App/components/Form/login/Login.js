@@ -3,10 +3,10 @@ import Formsy from "formsy-react";
 import InputController from "../InputController";
 import { makeStyles } from "@mui/styles";
 import Control from "../../ReuseComponents/Control";
-import { Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useLoginForm } from "../../Hook/useLoginForm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Login(props) {
   const classes = useStyles();
-
+  const dispatch = useDispatch()
   const errors = useSelector((state) => state.errorHandler);
   const { onValid, onInvalid, onValidSubmit, canSubmit } = useLoginForm();
 
@@ -42,7 +42,6 @@ function Login(props) {
 
           />
         </Grid>
-
         <Grid md={12} xs={12} item>
           {" "}
           <InputController
@@ -69,9 +68,29 @@ function Login(props) {
               text="login"
               sx={{ paddingX: "10%" }}
             />
-          </Stack>
+           
+        
+          </Stack >
+        <Stack sx={{ paddingLeft: "35%" }}
+            direction="row"
+            alignItems="center">
+        <Typography  sx={{paddingLeft:"2.4%"}}variant="p">
+                 or
+            </Typography>
+            <Button onClick={()=>{
+                dispatch({type:"setLoginPop",payload : {isOpen : false}})
+                dispatch({type:"setRegisterPop",payload : {isOpen : true}})
+
+            }} size="large" sx={{marginLeft:"2px"}}>
+              Sign up
+            </Button>
+        </Stack>
         </Grid>
+    
+
       </Grid>
+
+
     </Formsy>
   );
 }

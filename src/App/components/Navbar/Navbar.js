@@ -2,7 +2,7 @@ import React from "react";
 import RegisterForm from "../Form/Register/RegisterForm";
 import Control from "../ReuseComponents/Control";
 import { makeStyles } from "@mui/styles";
-import { Grid, Toolbar } from "@mui/material";
+import { Button, Grid, Toolbar } from "@mui/material";
 import Login from "../Form/login/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -75,6 +75,7 @@ function Navbar(props) {
   const dispatch = useDispatch();
   const POPUP = useSelector((state) => state.popup);
   const USER_STATUS = useSelector((state) => state.userProfile.PROFILE.id);
+
 
   const classes = useStyles();
 
@@ -176,6 +177,19 @@ function Navbar(props) {
         setOpenDrawer="setDrawerPop"
         openDrawer={POPUP.DRAWER_POP}
       >
+
+        <Button onClick={()=>{ 
+          dispatch({type:"setDrawerPop",payload : {isOpen:false}})
+          if(USER_STATUS){
+            dispatch({type:"setUploadPop",payload : {isOpen:true}})
+          }else{
+            dispatch({type:"setLoginPop",payload : {isOpen:true}})
+          }
+        }} variant="contained" color="success">
+          create Post
+        </Button>
+
+        <br/>
         {USER_STATUS ? null : (
           <Control.Button
             onClick={() =>
