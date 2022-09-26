@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiCardContent-root": {
       fontSize: 12,
     },
+    "& .MuiOutlinedInput-root" :{
+     borderRadius : 0
+    }
   },
 }));
 
@@ -97,6 +100,7 @@ const Comments = () => {
 
             <Grid item xs={2}>
               <Button
+              color="secondary"
                 onClick={() => {
                   dispatch({
                     type: "setGetComments",
@@ -108,6 +112,7 @@ const Comments = () => {
                 X
               </Button>
             </Grid>
+            <Grid item xs={1}></Grid>
           </Grid>
         </DialogTitle>
 
@@ -137,10 +142,12 @@ const Comments = () => {
               );
             })
           ) : (
-            <LoadingSpinner />
+           
+
+            <Stack direction="row" justifyContent="center"> <LoadingSpinner /> </Stack>
           )}
        
-          {POPUP.GET_COMMENTS_PAGES <= pages ? null : (
+          {POPUP.GET_COMMENTS_PAGES <= pages ? null : ( 
             <Stack direction="row" justifyContent="center">
               {isLoading ? (
                 <LoadingSpinner />
@@ -154,7 +161,7 @@ const Comments = () => {
         </DialogContent>
 
         <div>
-          <Grid container>
+          <Grid  container>
             <Grid item xs={9}>
               {" "}
               <TextField
@@ -166,7 +173,7 @@ const Comments = () => {
                 error={inputError}
            
                 size="small"
-                sx={{ width: "100%", borderRadius: "0px" }}
+                sx={{ width: "100%", borderRadius: 0 }}
               ></TextField>
             </Grid>
             <Grid item xs={3}>
